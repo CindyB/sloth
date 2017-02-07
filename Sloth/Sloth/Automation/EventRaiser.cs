@@ -1,13 +1,15 @@
-﻿Imports Sloth.Sloth.Interfaces
+﻿using Sloth.Interfaces;
+using System;
 
 namespace Sloth.Automation
+{
+    public class EventRaiser : IEventRaiser
+    { 
 
-    public Class EventRaiser
-        Implements IEventRaiser
-
-        public void RaiseSlothEvent(eventToRaise As ISlothEvent) Implements IEventRaiser.RaiseSlothEvent
-            Throw New NotImplementedException()
-        End void
-    End Class
+        public void RaiseSlothEvent(ISlothEvent eventToRaise)
+        {
+            throw new NotImplementedException();
+        }
+    }
 
 }

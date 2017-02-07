@@ -1,13 +1,13 @@
-﻿Imports System.IO
-Imports System.Reflection
-Imports Rhino.Mocks
-Imports Sloth.Sloth.Automation
-Imports Sloth.Sloth.Interfaces
+﻿using System.IO
+using System.Reflection
+using Rhino.Mocks
+using Sloth.Sloth.Automation
+using Sloth.Sloth.Interfaces
 
 namespace Sloth.UnitTests.Automation
 
     <TestClass()>
-    public Class EventReaderTest
+    public class EventReaderTest
 
         private m_EventConverter As IEventConverter
         private m_FileAdapter As IFileAdapter
@@ -18,10 +18,10 @@ namespace Sloth.UnitTests.Automation
             m_EventConverter = MockRepository.GenerateMock(Of IEventConverter)()
             m_FileAdapter = MockRepository.GenerateMock(Of IFileAdapter)()
 
-            m_Target = New EventReader()
+            m_Target = new EventReader()
             m_Target.GetType().GetField("m_EventConverter", BindingFlags.NonPublic Or BindingFlags.Instance).SetValue(m_Target, m_EventConverter)
             m_Target.GetType().GetField("m_FileAdapter", BindingFlags.NonPublic Or BindingFlags.Instance).SetValue(m_Target, m_FileAdapter)
-        End void
+        }
 
         <TestCleanup>
         public void TestCleanup()
@@ -31,7 +31,7 @@ namespace Sloth.UnitTests.Automation
             m_Target.GetType().GetField("m_EventConverter", BindingFlags.NonPublic Or BindingFlags.Instance).SetValue(m_Target, Nothing)
             m_Target.GetType().GetField("m_FileAdapter", BindingFlags.NonPublic Or BindingFlags.Instance).SetValue(m_Target, Nothing)
             m_Target = Nothing
-        End void
+        }
 
         <TestMethod()>
         public void GivenFilePath_WhenReadEvents_ThenAllLinesOfFileAreRead()
@@ -40,7 +40,7 @@ namespace Sloth.UnitTests.Automation
             m_Target.ReadEvents(filePath)
 
             m_FileAdapter.AssertWasCalled(Function(x) x.ReadAllLines(filePath))
-        End void
+        }
 
         <TestMethod()>
         public void GivenLinesOfFile_WhenReadEvents_ThenLinesAreConvertedToSlothEvents()
@@ -51,7 +51,7 @@ namespace Sloth.UnitTests.Automation
             m_Target.ReadEvents(filePath)
 
             m_EventConverter.AssertWasCalled(Function(x) x.ConvertToSlothEvents(lines))
-        End void
+        }
 
         <TestMethod()>
         public void GivenFilePath_WhenReadEvents_ThenConvertedEventsAreReturned()
@@ -64,8 +64,8 @@ namespace Sloth.UnitTests.Automation
             Dim actual As ISlothEvent() = m_Target.ReadEvents(filePath)
 
             Assert.AreSame(expected, actual)
-        End void
+        }
 
-    End Class
+    }
 
 }

@@ -1,5 +1,6 @@
 ﻿using System.IO;
-using Sloth.Sloth.Interfaces;
+using Sloth.Interfaces;
+using System;
 
 namespace Sloth.Automation
 {
@@ -15,18 +16,19 @@ namespace Sloth.Automation
             m_EventReader = new EventReader();
         }
 
-        public void RepeatBehavior(String filePath) Implements IAutomaton.RepeatBehavior
-        { 
-            if filePath Is Nothing Then Throw New ArgumentNullException("filePath")
-            if String.IsNullOrEmpty(filePath) Then Throw New ArgumentException("filePath")
-            if Not File.Exists(filePath) Then Throw New FileNotFoundException(filePath)
+        public void RepeatBehavior(string filePath)
+        {
+            if (filePath == null) throw new ArgumentNullException("filePath");
+            if (string.IsNullOrEmpty(filePath)) throw new ArgumentException("filePath");
+            if (!File.Exists(filePath)) throw new FileNotFoundException(filePath);
 
-            Dim eventsToRaise As ISlothEvent() = m_EventReader.ReadEvents(filePath)
-            if eventsToRaise Is Nothing Then Exit void
+            ISlothEvent[] eventsToRaise = m_EventReader.ReadEvents(filePath);
+            if (eventsToRaise == null) return;
 
-            For Each eventToRaise In eventsToRaise
-                m_EventRaiser.RaiseSlothEvent(eventToRaise)
-            Next
+            foreach (ISlothEvent eventToRaise in eventsToRaise)
+            {
+                m_EventRaiser.RaiseSlothEvent(eventToRaise);
+            }
 
         }
     }

@@ -1,22 +1,23 @@
-﻿Imports Sloth.Sloth.Interfaces
-Imports Sloth.Sloth.Log
+﻿using Sloth.Interfaces;
 
 namespace Sloth.Automation
+{
+    public class EventReader : IEventReader
+    { 
 
-    public Class EventReader
-        Implements IEventReader
+        private IEventConverter m_EventConverter;
+        private IFileAdapter m_FileAdapter;
 
-        private m_EventConverter As IEventConverter
-        private m_FileAdapter As IFileAdapter
+        public EventReader()
+        {
+        m_EventConverter = new EventConverter();
+        m_FileAdapter = new FileAdapter();
+        }
 
-        public void New()
-            m_EventConverter = New EventConverter()
-            m_FileAdapter = New FileAdapter()
-        End void
-
-        public Function ReadEvents(filePath As String) As ISlothEvent() Implements IEventReader.ReadEvents
-            Return m_EventConverter.ConvertToSlothEvents(m_FileAdapter.ReadAllLines(filePath))
-        End Function
-    End Class
+        public ISlothEvent[] ReadEvents(string filePath)
+        {
+            return m_EventConverter.ConvertToSlothEvents(m_FileAdapter.ReadAllLines(filePath));
+        }
+    }
 
 }
