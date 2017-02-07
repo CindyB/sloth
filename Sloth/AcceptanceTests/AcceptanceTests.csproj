@@ -53,9 +53,9 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="Log\CatchAndLogRawEvent.cs" />
+    <Compile Include="Learn\CatchAndLogRawEvent.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Automation\ReadAndRaiseFormattedEvent.cs" />
+    <Compile Include="Repeat\ReadAndRaiseFormattedEvent.cs" />
   </ItemGroup>
   <ItemGroup />
   <Choose>

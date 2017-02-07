@@ -41,10 +41,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Automation\Automaton.cs" />
-    <Compile Include="Automation\EventConverter.cs" />
-    <Compile Include="Automation\EventRaiser.cs" />
-    <Compile Include="Automation\EventReader.cs" />
+    <Compile Include="Repeat\Automaton.cs" />
+    <Compile Include="Repeat\EventConverter.cs" />
+    <Compile Include="Repeat\EventRaiser.cs" />
+    <Compile Include="Repeat\EventReader.cs" />
     <Compile Include="Interfaces\IApplicationAdapter.cs" />
     <Compile Include="Interfaces\IAutomaton.cs" />
     <Compile Include="Interfaces\IEventConverter.cs" />
@@ -54,10 +54,10 @@
     <Compile Include="Interfaces\IFileAdapter.cs" />
     <Compile Include="Interfaces\ILogger.cs" />
     <Compile Include="Interfaces\ISlothEvent.cs" />
-    <Compile Include="Log\ApplicationAdapter.cs" />
-    <Compile Include="Log\EventListener.cs" />
-    <Compile Include="Log\FileAdapter.cs" />
-    <Compile Include="Log\Logger.cs" />
+    <Compile Include="Learn\ApplicationAdapter.cs" />
+    <Compile Include="Learn\EventListener.cs" />
+    <Compile Include="Learn\FileAdapter.cs" />
+    <Compile Include="Learn\Logger.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />

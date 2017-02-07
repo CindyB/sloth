@@ -53,12 +53,12 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="Automation\AutomatonTest.cs" />
-    <Compile Include="Automation\EventReaderTest.cs" />
-    <Compile Include="Log\ApplicationAdapterTest.cs" />
-    <Compile Include="Log\EventListenerTest.cs" />
-    <Compile Include="Log\FileAdapterTest.cs" />
-    <Compile Include="Log\LoggerTest.cs" />
+    <Compile Include="Repeat\AutomatonTest.cs" />
+    <Compile Include="Repeat\EventReaderTest.cs" />
+    <Compile Include="Learn\ApplicationAdapterTest.cs" />
+    <Compile Include="Learn\EventListenerTest.cs" />
+    <Compile Include="Learn\FileAdapterTest.cs" />
+    <Compile Include="Learn\LoggerTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Choose>

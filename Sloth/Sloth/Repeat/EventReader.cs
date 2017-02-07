@@ -1,7 +1,7 @@
 ﻿using Sloth.Interfaces;
-using Sloth.Log;
+using Sloth.Learn;
 
-namespace Sloth.Automation
+namespace Sloth.Repeat
 {
     public class EventReader : IEventReader
     { 

@@ -1,7 +1,7 @@
 ﻿using Sloth.Interfaces;
 using System;
 
-namespace Sloth.Automation
+namespace Sloth.Repeat
 {
     public class EventRaiser : IEventRaiser
     { 
