@@ -1,4 +1,5 @@
 ﻿using Sloth.Interfaces;
+using Sloth.Log;
 
 namespace Sloth.Automation
 {
