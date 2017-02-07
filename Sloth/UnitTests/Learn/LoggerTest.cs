@@ -1,49 +1,56 @@
-﻿using System.IO
-using System.Reflection
-using System.Text
-using Microsoft.VisualStudio.TestTools.UnitTesting
-using Rhino.Mocks
-using Sloth.Sloth
-using Sloth.Sloth.Interfaces
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Sloth.UnitTests.Log
+using Rhino.Mocks;
 
-    <TestClass()>
+using Sloth.Interfaces;
+using Sloth.Learn;
+using System;
+using System.IO;
+
+using System.Reflection;
+
+namespace Sloth.UnitTests.Learn
+{
+    [TestClass()]
     public class LoggerTest
+    {
+        private IFileAdapter m_FileAdapter;
 
-        private m_FileAdapter As IFileAdapter
+        private ILogger m_Target; 
 
-        private m_Target As ILogger
-
-        <TestInitialize>
+        [TestInitialize]
         public void TestInitialize()
-            m_FileAdapter = MockRepository.GenerateMock(Of IFileAdapter)
+        {
+            m_FileAdapter = MockRepository.GenerateMock<IFileAdapter>();
 
-            m_Target = new Logger()
-            m_Target.GetType().GetField("m_FileAdapter", BindingFlags.NonPublic Or BindingFlags.Instance).SetValue(m_Target, m_FileAdapter)
+            m_Target = new Logger();
+            m_Target.GetType().GetField("m_FileAdapter", BindingFlags.NonPublic | BindingFlags.Instance).SetValue(m_Target, m_FileAdapter);
         }
 
-        <TestCleanup>
+        [TestCleanup]
         public void TestCleanup()
-            m_FileAdapter = Nothing
+        {
+            m_FileAdapter = null;
 
-            m_Target.GetType().GetField("m_FileAdapter", BindingFlags.NonPublic Or BindingFlags.Instance).SetValue(m_Target, Nothing)
-            m_Target = Nothing
+            m_Target.GetType().GetField("m_FileAdapter", BindingFlags.NonPublic | BindingFlags.Instance).SetValue(m_Target, null);
+            m_Target = null;
         }
 
-        <TestMethod(), ExpectedException(GetType(ArgumentNullException))>
+        [TestMethod(), ExpectedException(typeof(ArgumentNullException))]
         public void GivenLineIsNothing_WhenLog_ThenArgumentNullExceptionIsThrown()
-            m_Target.Log(Nothing)
+        {
+            m_Target.Log(null);
         }
 
-        <TestMethod()>
+        [TestMethod()]
         public void GivenFilePathAndLineToAppend_WhenLog_ThenLineIsAppendToLogFile()
-            Dim filePath As String = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + Path.DirectorySeparatorChar + "Sloth" + Path.DirectorySeparatorChar + "UserEvent.sloth"
-            Dim line As String = "This is a test"
+        {
+            string filePath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + Path.DirectorySeparatorChar + "Sloth" + Path.DirectorySeparatorChar + "UserEvent.sloth";
+            string line = "This is a test";
 
-            m_Target.Log(line)
+            m_Target.Log(line);
 
-            m_FileAdapter.AssertWasCalled(void(x) x.AppendToFile(filePath, line))
+            m_FileAdapter.AssertWasCalled(x => x.AppendToFile(filePath, line));
         }
 
     }

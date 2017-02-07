@@ -1,26 +1,32 @@
-﻿using Sloth.Sloth.Interfaces
-using Sloth.Sloth.Log
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Sloth.Interfaces;
+using Sloth.Learn;
+using System;
 
-namespace Sloth.UnitTests.Log
-
-    <TestClass()>
+namespace Sloth.UnitTests.Learn
+{
+    [TestClass()]
     public class ApplicationAdapterTest
+    {
 
-        private m_Target As IApplicationAdapter
+        private IApplicationAdapter m_Target;
 
-        <TestInitialize>
+        [TestInitialize]
         public void TestInitialize()
-            m_Target = new ApplicationAdapter()
+        {
+            m_Target = new ApplicationAdapter();
         }
 
-        <TestCleanup>
+        [TestCleanup]
         public void TestCleanup()
-            m_Target = Nothing
+        {
+            m_Target = null;
         }
 
-        <TestMethod(), ExpectedException(GetType(ArgumentNullException))>
+        [TestMethod(), ExpectedException(typeof(ArgumentNullException))]
         public void GivenEventListenerIsNothing_WhenAddEventListenerAsMessageFilter_ThenArgumentNullExceptionIsThrown()
-            m_Target.AddEventListenerAsMessageFilter(Nothing)
+        {
+            m_Target.AddEventListenerAsMessageFilter(null);
         }
 
     }

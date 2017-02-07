@@ -1,92 +1,103 @@
-﻿using System.IO
-using System.Reflection
-using Rhino.Mocks
-using Sloth.Sloth.Automation
-using Sloth.Sloth.Interfaces
+﻿using System.IO;
+using System.Reflection;
+using Rhino.Mocks;
+using Sloth.Interfaces;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Sloth.Repeat;
+using System;
 
-namespace Sloth.UnitTests.Automation
-
-    <TestClass()>
+namespace Sloth.UnitTests.Repeat
+{ 
+    [TestClass()]
     public class AutomatonTest
+    {
+        private IEventRaiser m_EventRaiser;
+        private IEventReader m_EventReader;
+        private IAutomaton m_Target; 
 
-        private m_EventRaiser As IEventRaiser
-        private m_EventReader As IEventReader
-        private m_Target As IAutomaton
-
-        <TestInitialize>
+        [TestInitialize]
         public void TestInitialize()
-            m_EventRaiser = MockRepository.GenerateMock(Of IEventRaiser)()
-            m_EventReader = MockRepository.GenerateMock(Of IEventReader)()
+        {
+            m_EventRaiser = MockRepository.GenerateMock<IEventRaiser>();
+            m_EventReader = MockRepository.GenerateMock<IEventReader>();
 
-            m_Target = new Automaton()
-            m_Target.GetType().GetField("m_EventRaiser", BindingFlags.NonPublic Or BindingFlags.Instance).SetValue(m_Target, m_EventRaiser)
-            m_Target.GetType().GetField("m_EventReader", BindingFlags.NonPublic Or BindingFlags.Instance).SetValue(m_Target, m_EventReader)
+            m_Target = new Automaton();
+            m_Target.GetType().GetField("m_EventRaiser", BindingFlags.NonPublic | BindingFlags.Instance).SetValue(m_Target, m_EventRaiser);
+            m_Target.GetType().GetField("m_EventReader", BindingFlags.NonPublic | BindingFlags.Instance).SetValue(m_Target, m_EventReader);
         }
 
-        <TestCleanup>
+        [TestCleanup]
         public void TestCleanup()
-            m_EventRaiser = Nothing
-            m_EventReader = Nothing
+        {
+            m_EventRaiser = null;
+            m_EventReader = null;
 
-            m_Target.GetType().GetField("m_EventRaiser", BindingFlags.NonPublic Or BindingFlags.Instance).SetValue(m_Target, Nothing)
-            m_Target.GetType().GetField("m_EventReader", BindingFlags.NonPublic Or BindingFlags.Instance).SetValue(m_Target, Nothing)
-            m_Target = Nothing
+            m_Target.GetType().GetField("m_EventRaiser", BindingFlags.NonPublic | BindingFlags.Instance).SetValue(m_Target, null);
+            m_Target.GetType().GetField("m_EventReader", BindingFlags.NonPublic | BindingFlags.Instance).SetValue(m_Target, null);
+            m_Target = null;
         }
 
-        <TestMethod(), ExpectedException(GetType(ArgumentNullException))>
+        [TestMethod(), ExpectedException(typeof(ArgumentNullException))]
         public void GivenFilePathIsNothing_WhenRepeatBehavior_ThenArgumentNullExceptionIsThrown()
-            m_Target.RepeatBehavior(Nothing)
+        {
+            m_Target.RepeatBehavior(null);
         }
 
-        <TestMethod(), ExpectedException(GetType(ArgumentException))>
+        [TestMethod(), ExpectedException(typeof(ArgumentException))]
         public void GivenFilePathIsEmpty_WhenRepeatBehavior_ThenArgumentExceptionIsThrown()
-            m_Target.RepeatBehavior(String.Empty)
+        { 
+            m_Target.RepeatBehavior(String.Empty);
         }
 
-        <TestMethod(), ExpectedException(GetType(FileNotFoundException))>
+        [TestMethod(), ExpectedException(typeof(FileNotFoundException))]
         public void GivenFilePathDoesntExists_WhenRepeatBehavior_ThenFileNotFoundExceptionIsThrown()
-            m_Target.RepeatBehavior("Z:\\test.txt")
+        { 
+            m_Target.RepeatBehavior("Z:\\test.txt");
         }
 
-        <TestMethod()>
+        [TestMethod()]
         public void GivenFilePath_WhenRepeatBehavior_ThenEventsAreReadFromFile()
-            Dim filePath As String = Me.GetType().Assembly.Location
+        { 
+            string filePath = this.GetType().Assembly.Location;
 
-            m_Target.RepeatBehavior(filePath)
+            m_Target.RepeatBehavior(filePath);
 
-            m_EventReader.AssertWasCalled(Function(x) x.ReadEvents(filePath))
+            m_EventReader.AssertWasCalled(x => x.ReadEvents(filePath));
         }
 
-        <TestMethod()>
+        [TestMethod()]
         public void GivenNoEventReadFromFile_WhenRepeatBehavior_ThenEventRaisingIsNotCalled()
-            Dim filePath As String = Me.GetType().Assembly.Location
+        { 
+            string filePath = this.GetType().Assembly.Location;
 
-            m_Target.RepeatBehavior(filePath)
+            m_Target.RepeatBehavior(filePath);
 
-            m_EventRaiser.AssertWasNotCalled(void(x) x.RaiseSlothEvent(Arg(Of ISlothEvent).Is.Anything))
+            m_EventRaiser.AssertWasNotCalled(x => x.RaiseSlothEvent(Arg<ISlothEvent>.Is.Anything));
         }
 
-        <TestMethod()>
+        [TestMethod()]
         public void GivenEventReadFromFile_WhenRepeatBehavior_ThenEventIsRaised()
-            Dim filePath As String = Me.GetType().Assembly.Location
-            Dim eventSloth() As ISlothEvent = { MockRepository.GenerateMock(Of ISlothEvent) }
-            m_EventReader.Expect(Function(x) x.ReadEvents(filePath)).Return(eventSloth)
+        { 
+            string filePath = this.GetType().Assembly.Location;
+            ISlothEvent[] eventSloth = new ISlothEvent[] { MockRepository.GenerateMock<ISlothEvent>()};
+            m_EventReader.Expect(x => x.ReadEvents(filePath)).Return(eventSloth);
 
-            m_Target.RepeatBehavior(filePath)
+            m_Target.RepeatBehavior(filePath);
 
-            m_EventRaiser.AssertWasCalled(void(x) x.RaiseSlothEvent(eventSloth(0)))
+            m_EventRaiser.AssertWasCalled(x => x.RaiseSlothEvent(eventSloth[0]));
         }
 
-        <TestMethod()>
+        [TestMethod()]
         public void GivenEventReadFromFile_WhenRepeatBehavior_ThenAllEventsAreRaised()
-            Dim filePath As String = Me.GetType().Assembly.Location
-            Dim eventSloth() As ISlothEvent = { MockRepository.GenerateMock(Of ISlothEvent), MockRepository.GenerateMock(Of ISlothEvent) }
-            m_EventReader.Expect(Function(x) x.ReadEvents(filePath)).Return(eventSloth)
+        {
+            string filePath = this.GetType().Assembly.Location;
+            ISlothEvent[] eventSloth = new ISlothEvent[] { MockRepository.GenerateMock<ISlothEvent>(), MockRepository.GenerateMock<ISlothEvent>() };
+            m_EventReader.Expect(x => x.ReadEvents(filePath)).Return(eventSloth);
 
-            m_Target.RepeatBehavior(filePath)
+            m_Target.RepeatBehavior(filePath);
 
-            m_EventRaiser.AssertWasCalled(void(x) x.RaiseSlothEvent(eventSloth(0)))
-            m_EventRaiser.AssertWasCalled(void(x) x.RaiseSlothEvent(eventSloth(1)))
+            m_EventRaiser.AssertWasCalled(x => x.RaiseSlothEvent(eventSloth[0]));
+            m_EventRaiser.AssertWasCalled(x => x.RaiseSlothEvent(eventSloth[1]));
         }
 
     }

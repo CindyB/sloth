@@ -1,69 +1,75 @@
-﻿using System.IO
-using System.Reflection
-using Rhino.Mocks
-using Sloth.Sloth.Automation
-using Sloth.Sloth.Interfaces
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Rhino.Mocks;
 
-namespace Sloth.UnitTests.Automation
+using Sloth.Interfaces;
+using Sloth.Repeat;
+using System.Reflection;
 
-    <TestClass()>
+namespace Sloth.UnitTests.Repeat
+{
+    [TestClass()]
     public class EventReaderTest
+    {
+        private IEventConverter m_EventConverter;
+        private IFileAdapter m_FileAdapter;
+        private IEventReader m_Target; 
 
-        private m_EventConverter As IEventConverter
-        private m_FileAdapter As IFileAdapter
-        private m_Target As IEventReader
-
-        <TestInitialize>
+        [TestInitialize]
         public void TestInitialize()
-            m_EventConverter = MockRepository.GenerateMock(Of IEventConverter)()
-            m_FileAdapter = MockRepository.GenerateMock(Of IFileAdapter)()
+        {
+            m_EventConverter = MockRepository.GenerateMock<IEventConverter>();
+            m_FileAdapter = MockRepository.GenerateMock<IFileAdapter>();
 
-            m_Target = new EventReader()
-            m_Target.GetType().GetField("m_EventConverter", BindingFlags.NonPublic Or BindingFlags.Instance).SetValue(m_Target, m_EventConverter)
-            m_Target.GetType().GetField("m_FileAdapter", BindingFlags.NonPublic Or BindingFlags.Instance).SetValue(m_Target, m_FileAdapter)
+            m_Target = new EventReader();
+            m_Target.GetType().GetField("m_EventConverter", BindingFlags.NonPublic | BindingFlags.Instance).SetValue(m_Target, m_EventConverter);
+            m_Target.GetType().GetField("m_FileAdapter", BindingFlags.NonPublic | BindingFlags.Instance).SetValue(m_Target, m_FileAdapter);
         }
 
-        <TestCleanup>
+        [TestCleanup]
         public void TestCleanup()
-            m_EventConverter = Nothing
-            m_FileAdapter = Nothing
+        {
+            m_EventConverter = null;
+            m_FileAdapter = null;
 
-            m_Target.GetType().GetField("m_EventConverter", BindingFlags.NonPublic Or BindingFlags.Instance).SetValue(m_Target, Nothing)
-            m_Target.GetType().GetField("m_FileAdapter", BindingFlags.NonPublic Or BindingFlags.Instance).SetValue(m_Target, Nothing)
-            m_Target = Nothing
+            m_Target.GetType().GetField("m_EventConverter", BindingFlags.NonPublic | BindingFlags.Instance).SetValue(m_Target, null);
+            m_Target.GetType().GetField("m_FileAdapter", BindingFlags.NonPublic | BindingFlags.Instance).SetValue(m_Target, null);
+            m_Target = null;
         }
 
-        <TestMethod()>
+        [TestMethod()]
         public void GivenFilePath_WhenReadEvents_ThenAllLinesOfFileAreRead()
-            Dim filePath As String = Me.GetType.Assembly.Location
+        {
+            string filePath = this.GetType().Assembly.Location;
 
-            m_Target.ReadEvents(filePath)
+            m_Target.ReadEvents(filePath);
 
-            m_FileAdapter.AssertWasCalled(Function(x) x.ReadAllLines(filePath))
+            m_FileAdapter.AssertWasCalled(x => x.ReadAllLines(filePath));
         }
 
-        <TestMethod()>
+        [TestMethod()]
         public void GivenLinesOfFile_WhenReadEvents_ThenLinesAreConvertedToSlothEvents()
-            Dim filePath As String = Me.GetType.Assembly.Location
-            Dim lines As String() = {"MyButton;Click"}
-            m_FileAdapter.Expect(Function(x) x.ReadAllLines(filePath)).Return(lines)
+        { 
+            string filePath = this.GetType().Assembly.Location;
+            string[] lines = {"MyButton;Click"};
+            m_FileAdapter.Expect(x => x.ReadAllLines(filePath)).Return(lines);
 
-            m_Target.ReadEvents(filePath)
+            m_Target.ReadEvents(filePath);
 
-            m_EventConverter.AssertWasCalled(Function(x) x.ConvertToSlothEvents(lines))
+            m_EventConverter.AssertWasCalled(x => x.ConvertToSlothEvents(lines));
         }
 
-        <TestMethod()>
+        [TestMethod()]
         public void GivenFilePath_WhenReadEvents_ThenConvertedEventsAreReturned()
-            Dim filePath As String = Me.GetType.Assembly.Location
-            Dim lines As String() = {"MyButton;Click"}
-            m_FileAdapter.Expect(Function(x) x.ReadAllLines(filePath)).Return(lines)
-            Dim expected As ISlothEvent() = {MockRepository.GenerateMock(Of ISlothEvent), MockRepository.GenerateMock(Of ISlothEvent)}
-            m_EventConverter.Expect(Function(x) x.ConvertToSlothEvents(lines)).Return(expected)
+        { 
+            string filePath = this.GetType().Assembly.Location;
+            string[] lines = {"MyButton;Click"};
+            m_FileAdapter.Expect(x => x.ReadAllLines(filePath)).Return(lines);
+            ISlothEvent[] expected = { MockRepository.GenerateMock<ISlothEvent>(), MockRepository.GenerateMock<ISlothEvent>()};
+            m_EventConverter.Expect(x => x.ConvertToSlothEvents(lines)).Return(expected);
 
-            Dim actual As ISlothEvent() = m_Target.ReadEvents(filePath)
+            ISlothEvent[] actual = m_Target.ReadEvents(filePath);
 
-            Assert.AreSame(expected, actual)
+            Assert.AreSame(expected, actual);
         }
 
     }

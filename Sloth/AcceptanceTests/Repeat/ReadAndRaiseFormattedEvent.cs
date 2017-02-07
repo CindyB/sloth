@@ -7,25 +7,25 @@ using TestStack.BDDfy
 
 namespace Sloth.AcceptanceTests.Automation
 
-    <TestClass, Story(Title:="Read formatted user event and raise it",
+    [TestClass, Story(Title:="Read formatted user event and raise it",
                       AsA:="Developer",
            IWant:="To read a user event",
-           SoThat:="Raise it")>
+           SoThat:="Raise it")]
     public class ReadAndRaiseFormattedEvent
 
         private m_logFileName As String = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + Path.DirectorySeparatorChar + "Sloth" + Path.DirectorySeparatorChar + "TestUserEvent.sloth"
         private m_Logger As ILogger
 
-        <TestInitialize>
+        [TestInitialize]
         public void TestInitialize()
             m_Logger = new Logger()
             m_Logger.GetType().GetField("m_FilePath", BindingFlags.NonPublic Or BindingFlags.Instance).SetValue(m_Logger, m_logFileName)
         }
 
-        <TestCleanup>
+        [TestCleanup]
         public void TestCleanup()
-            m_Logger.GetType().GetField("m_FilePath", BindingFlags.NonPublic Or BindingFlags.Instance).SetValue(m_Logger, Nothing)
-            m_Logger = Nothing
+            m_Logger.GetType().GetField("m_FilePath", BindingFlags.NonPublic Or BindingFlags.Instance).SetValue(m_Logger, null)
+            m_Logger = null
 
             File.Delete(m_logFileName)
         }
@@ -43,11 +43,11 @@ namespace Sloth.AcceptanceTests.Automation
             Throw new NotImplementedException()
         }
 
-        <TestMethod>
+        [TestMethod]
         public void ReadEventRaised()
-            Me.Given(void(x) x.GivenUserEventLogFileWithUserEvent("MyButton;Click"), "A user event log file with user event {0}") _
-            .When(void(x) x.WhenReadAndRaiseFirstEvent(), "When read file and raise first event") _
-                .Then(void(x) x.ThenFirstEventReadIsRaised(), "Then first user event read in file is raised") _
+            this.Given(x => x.GivenUserEventLogFileWithUserEvent("MyButton;Click"), "A user event log file with user event {0}") _
+            .When(x => x.WhenReadAndRaiseFirstEvent(), "When read file and raise first event") _
+                .Then(x => x.ThenFirstEventReadIsRaised(), "Then first user event read in file is raised") _
                 .BDDfy()
         }
 

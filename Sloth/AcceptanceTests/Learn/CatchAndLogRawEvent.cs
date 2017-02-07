@@ -6,10 +6,10 @@ using Sloth.Sloth.Log
 
 namespace Sloth.AcceptanceTests.Learn
 
-    <TestClass, Story(Title:="Catch a user event and log it raw",
+    [TestClass, Story(Title:="Catch a user event and log it raw",
                       AsA:="Developer",
            IWant:="To catch a raw user event",
-           SoThat:="I can log it")>
+           SoThat:="I can log it")]
     public class CatchAndLogRawEvent
 
         private logFileName As String = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + Path.DirectorySeparatorChar + "Sloth" + Path.DirectorySeparatorChar + "UserEvent.sloth"
@@ -34,12 +34,12 @@ namespace Sloth.AcceptanceTests.Learn
             Assert.AreEqual(eventLine, File.ReadLines(logFileName))
         }
 
-        <TestMethod>
+        [TestMethod]
         public void CatchedEventLogged()
-            Me.Given(void(x) x.GivenUserButton("MyTestButton"), "A user button named {0}") _
-                .And(void(x) x.GivenEventListenerService(), "A event listener service") _
-            .When(void(x) x.WhenButtonIsClick(), "When button is click") _
-                .Then(void(x) x.ThenEventIsLogInFile(), "Then event is log in file") _
+            this.Given(x => x.GivenUserButton("MyTestButton"), "A user button named {0}") _
+                .And(x => x.GivenEventListenerService(), "A event listener service") _
+            .When(x => x.WhenButtonIsClick(), "When button is click") _
+                .Then(x => x.ThenEventIsLogInFile(), "Then event is log in file") _
                 .BDDfy()
         }
 

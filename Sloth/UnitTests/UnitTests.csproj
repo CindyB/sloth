@@ -39,6 +39,7 @@
       <HintPath>..\Librairies\Rhino.Mocks.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <Choose>
     <When Condition="('$(VisualStudioVersion)' == '10.0' or '$(VisualStudioVersion)' == '') and '$(TargetFrameworkVersion)' == 'v3.5'">
@@ -60,6 +61,12 @@
     <Compile Include="Learn\FileAdapterTest.cs" />
     <Compile Include="Learn\LoggerTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Sloth\Sloth.csproj">
+      <Project>{8fc39ade-93ff-434b-8ff7-eb62ab7a043a}</Project>
+      <Name>Sloth</Name>
+    </ProjectReference>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
