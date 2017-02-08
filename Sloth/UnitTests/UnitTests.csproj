@@ -55,6 +55,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="Repeat\AutomatonTest.cs" />
+    <Compile Include="Repeat\EventRaiserTest.cs" />
     <Compile Include="Repeat\EventReaderTest.cs" />
     <Compile Include="Learn\ApplicationAdapterTest.cs" />
     <Compile Include="Learn\EventListenerTest.cs" />

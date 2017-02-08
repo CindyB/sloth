@@ -12,6 +12,10 @@ namespace Sloth.Learn
             Application.AddMessageFilter(eventListener);
         }
 
+        public FormCollection GetAllOpenForms()
+        {
+            return Application.OpenForms;
+        }
     }
 
 }
