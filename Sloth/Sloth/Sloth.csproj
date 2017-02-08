@@ -41,8 +41,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Interfaces\IWinUtilities.cs" />
     <Compile Include="Repeat\Automaton.cs" />
     <Compile Include="Repeat\EventConverter.cs" />
+    <Compile Include="Repeat\WinUtilities.cs" />
     <Compile Include="Repeat\EventRaiser.cs" />
     <Compile Include="Repeat\EventReader.cs" />
     <Compile Include="Interfaces\IApplicationAdapter.cs" />

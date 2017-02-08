@@ -8,8 +8,6 @@ namespace Sloth.Interfaces
 
         void AddEventListenerAsMessageFilter(IEventListener eventListener);
 
-        FormCollection GetAllOpenForms();
-
     }
 
 }

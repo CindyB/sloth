@@ -7,21 +7,20 @@ namespace Sloth.Repeat
 {
     public class EventRaiser : IEventRaiser
     {
-        private IApplicationAdapter m_ApplicationAdapter;
+        private IWinUtilities m_WinUtilities;
 
         public EventRaiser()
         {
-            m_ApplicationAdapter = new ApplicationAdapter();
+            m_WinUtilities = new WinUtilities();
         }
 
         public void RaiseSlothEvent(ISlothEvent eventToRaise)
         {
-            FormCollection openForms = m_ApplicationAdapter.GetAllOpenForms();
-            //Find window, need classname and windowsname
+            IntPtr windowsHandle = m_WinUtilities.FindWindowsHandle(eventToRaise.ClassName,eventToRaise.WindowsName);
 
-            //find control handle GetDlgItem
+            IntPtr controlHandle  = m_WinUtilities.FindControlHandle(windowsHandle, eventToRaise.ControlName);
 
-            //sendmessage or senddlgitemmessage
+            m_WinUtilities.SendMessage(windowsHandle, controlHandle, eventToRaise);
         }
     }
 
