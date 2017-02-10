@@ -17,6 +17,7 @@ namespace Sloth.UnitTests.Learn
     {
         private IApplicationAdapter m_ApplicationAdapter;
         private ILogger m_Logger;
+        private IWinUtilities m_WinUtilities;
         private IEventListener m_Target;
 
         [TestInitialize]
@@ -24,10 +25,12 @@ namespace Sloth.UnitTests.Learn
         {
             m_ApplicationAdapter = MockRepository.GenerateMock<IApplicationAdapter>();
             m_Logger = MockRepository.GenerateMock <ILogger>();
+            m_WinUtilities = MockRepository.GenerateMock<IWinUtilities>();
 
             m_Target = new EventListener();
             m_Target.GetType().GetField("m_ApplicationAdapter", BindingFlags.NonPublic | BindingFlags.Instance).SetValue(m_Target, m_ApplicationAdapter);
             m_Target.GetType().GetField("m_Logger", BindingFlags.NonPublic | BindingFlags.Instance).SetValue(m_Target, m_Logger);
+            m_Target.GetType().GetField("m_WinUtilities", BindingFlags.NonPublic | BindingFlags.Instance).SetValue(m_Target, m_WinUtilities);
         }
 
         [TestCleanup]
@@ -35,9 +38,11 @@ namespace Sloth.UnitTests.Learn
         {
             m_ApplicationAdapter = null;
             m_Logger = null;
+            m_WinUtilities = null;
 
             m_Target.GetType().GetField("m_ApplicationAdapter", BindingFlags.NonPublic | BindingFlags.Instance).SetValue(m_Target, null);
             m_Target.GetType().GetField("m_Logger", BindingFlags.NonPublic | BindingFlags.Instance).SetValue(m_Target, null);
+            m_Target.GetType().GetField("m_WinUtilities", BindingFlags.NonPublic | BindingFlags.Instance).SetValue(m_Target, null);
             m_Target = null;
         }
 
@@ -53,12 +58,35 @@ namespace Sloth.UnitTests.Learn
         }
 
         [TestMethod()]
-        public void GivenMessageFromControl_WhenPreFilterMessage_ThenListenerIsAddedAsMessageFilter()
+        public void GivenMessageFromControl_WhenPreFilterMessage_ThenFormHandleOfControlIsGet()
         {
-            Button b = new Button();
-            Message m = Message.Create(b.Handle, 513, IntPtr.Zero, IntPtr.Zero);
-            string expectedMessage = Control.FromHandle(m.HWnd).Name + ";" + m.ToString();
+            IntPtr formHandle = new IntPtr(666);
+            Form f = MockRepository.GenerateMock<Form>();
+            f.Expect(x => x.Handle).Return(formHandle);
 
+            Button b = MockRepository.GenerateMock<Button>();
+            b.Expect(x => x.FindForm()).Return(f);
+
+            Message m = Message.Create(b.Handle, 513, IntPtr.Zero, IntPtr.Zero);
+
+
+            m_Target.PreFilterMessage(ref m);
+
+            b.AssertWasCalled(x => x.FindForm().Handle);
+        }
+
+        [TestMethod()]
+        public void GivenMessageFromControl_WhenPreFilterMessage_ThenHandledMessageIsLog()
+        {
+            IntPtr formHandle = new IntPtr(666);
+            Form f = MockRepository.GenerateMock<Form>();
+            f.Expect(x => x.Handle).Return(formHandle);
+
+            Button b = MockRepository.GenerateMock<Button>();
+            b.Expect(x => x.FindForm()).Return(f);
+
+            Message m = Message.Create(b.Handle, 513, IntPtr.Zero, IntPtr.Zero);
+            string expectedMessage =  m_WinUtilities.GetClassName(formHandle)  + ";" + m_WinUtilities.GetWindowText(formHandle) + ";" + Control.FromHandle(m.HWnd).Name + ";" + m.Msg;
 
             m_Target.PreFilterMessage(ref m);
 

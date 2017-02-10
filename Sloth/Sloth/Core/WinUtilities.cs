@@ -15,6 +15,16 @@ namespace Sloth.Core
             throw new NotImplementedException();
         }
 
+        public string GetClassName(IntPtr windowsHandle)
+        {
+            throw new NotImplementedException();
+        }
+
+        public string GetWindowText(IntPtr windowsHandle)
+        {
+            throw new NotImplementedException();
+        }
+
         public void SendMessage(IntPtr windowsHandle, IntPtr controlHandle, ISlothEvent slothEvent)
         {
             throw new NotImplementedException();

@@ -10,6 +10,10 @@ namespace Sloth.Interfaces.Core
 
         IntPtr FindControlHandle(IntPtr windowsHandle, string controlName);
 
+        string GetClassName(IntPtr windowsHandle);
+
+        string GetWindowText(IntPtr windowsHandle);
+
         void SendMessage(IntPtr windowsHandle, IntPtr controlHandle, ISlothEvent slothEvent);
     }
 
