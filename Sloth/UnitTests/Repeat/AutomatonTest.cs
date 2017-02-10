@@ -1,13 +1,14 @@
-﻿using System.IO;
-using System.Reflection;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Rhino.Mocks;
-using Sloth.Interfaces;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Sloth.Interfaces.Core;
+using Sloth.Interfaces.Repeat;
 using Sloth.Repeat;
 using System;
+using System.IO;
+using System.Reflection;
 
 namespace Sloth.UnitTests.Repeat
-{ 
+{
     [TestClass()]
     public class AutomatonTest
     {

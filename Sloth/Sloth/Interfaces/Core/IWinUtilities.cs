@@ -1,7 +1,6 @@
 ﻿using System;
-using System.Windows.Forms;
 
-namespace Sloth.Interfaces
+namespace Sloth.Interfaces.Core
 {
 
     public interface IWinUtilities

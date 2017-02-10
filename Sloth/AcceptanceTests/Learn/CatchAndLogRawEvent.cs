@@ -1,5 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Sloth.Interfaces;
+using Sloth.Interfaces.Learn;
 using Sloth.Learn;
 using System;
 using System.IO;
@@ -9,7 +9,7 @@ using System.Windows.Forms;
 using TestStack.BDDfy;
 
 namespace Sloth.AcceptanceTests.Learn
-{ 
+{
     [TestClass, Story(Title = "Catch a user event and log it raw",
                       AsA = "Developer",
            IWant = "To catch a raw user event",

@@ -57,9 +57,9 @@
     <Compile Include="Repeat\AutomatonTest.cs" />
     <Compile Include="Repeat\EventRaiserTest.cs" />
     <Compile Include="Repeat\EventReaderTest.cs" />
-    <Compile Include="Learn\ApplicationAdapterTest.cs" />
+    <Compile Include="Core\ApplicationAdapterTest.cs" />
     <Compile Include="Learn\EventListenerTest.cs" />
-    <Compile Include="Learn\FileAdapterTest.cs" />
+    <Compile Include="Core\FileAdapterTest.cs" />
     <Compile Include="Learn\LoggerTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

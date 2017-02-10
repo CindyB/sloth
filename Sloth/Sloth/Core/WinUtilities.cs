@@ -1,9 +1,7 @@
-﻿using Sloth.Interfaces;
-using Sloth.Learn;
+﻿using Sloth.Interfaces.Core;
 using System;
-using System.Windows.Forms;
 
-namespace Sloth.Repeat
+namespace Sloth.Core
 {
     public class WinUtilities : IWinUtilities
     {

@@ -1,4 +1,6 @@
-﻿namespace Sloth.Interfaces
+﻿using Sloth.Interfaces.Core;
+
+namespace Sloth.Interfaces.Repeat
 {
 
     public interface IEventConverter

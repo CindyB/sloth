@@ -41,24 +41,25 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Interfaces\IWinUtilities.cs" />
+    <Compile Include="Core\SlothEvent.cs" />
+    <Compile Include="Interfaces\Core\IWinUtilities.cs" />
     <Compile Include="Repeat\Automaton.cs" />
     <Compile Include="Repeat\EventConverter.cs" />
-    <Compile Include="Repeat\WinUtilities.cs" />
+    <Compile Include="Core\WinUtilities.cs" />
     <Compile Include="Repeat\EventRaiser.cs" />
     <Compile Include="Repeat\EventReader.cs" />
-    <Compile Include="Interfaces\IApplicationAdapter.cs" />
-    <Compile Include="Interfaces\IAutomaton.cs" />
-    <Compile Include="Interfaces\IEventConverter.cs" />
-    <Compile Include="Interfaces\IEventListener.cs" />
-    <Compile Include="Interfaces\IEventRaiser.cs" />
-    <Compile Include="Interfaces\IEventReader.cs" />
-    <Compile Include="Interfaces\IFileAdapter.cs" />
-    <Compile Include="Interfaces\ILogger.cs" />
-    <Compile Include="Interfaces\ISlothEvent.cs" />
-    <Compile Include="Learn\ApplicationAdapter.cs" />
+    <Compile Include="Interfaces\Core\IApplicationAdapter.cs" />
+    <Compile Include="Interfaces\Repeat\IAutomaton.cs" />
+    <Compile Include="Interfaces\Repeat\IEventConverter.cs" />
+    <Compile Include="Interfaces\Learn\IEventListener.cs" />
+    <Compile Include="Interfaces\Repeat\IEventRaiser.cs" />
+    <Compile Include="Interfaces\Repeat\IEventReader.cs" />
+    <Compile Include="Interfaces\Core\IFileAdapter.cs" />
+    <Compile Include="Interfaces\Learn\ILogger.cs" />
+    <Compile Include="Interfaces\Core\ISlothEvent.cs" />
+    <Compile Include="Core\ApplicationAdapter.cs" />
     <Compile Include="Learn\EventListener.cs" />
-    <Compile Include="Learn\FileAdapter.cs" />
+    <Compile Include="Core\FileAdapter.cs" />
     <Compile Include="Learn\Logger.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -2,6 +2,8 @@
 using Rhino.Mocks;
 
 using Sloth.Interfaces;
+using Sloth.Interfaces.Core;
+using Sloth.Interfaces.Learn;
 using Sloth.Learn;
 using System;
 using System.Reflection;

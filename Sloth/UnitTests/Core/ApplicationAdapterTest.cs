@@ -1,9 +1,9 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Sloth.Interfaces;
-using Sloth.Learn;
+using Sloth.Core;
+using Sloth.Interfaces.Core;
 using System;
 
-namespace Sloth.UnitTests.Learn
+namespace Sloth.UnitTests.Core
 {
     [TestClass()]
     public class ApplicationAdapterTest

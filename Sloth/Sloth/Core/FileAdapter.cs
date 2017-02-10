@@ -1,7 +1,7 @@
-﻿using Sloth.Interfaces;
+﻿using Sloth.Interfaces.Core;
 using System.IO;
 
-namespace Sloth.Learn
+namespace Sloth.Core
 {
 
     public class FileAdapter : IFileAdapter

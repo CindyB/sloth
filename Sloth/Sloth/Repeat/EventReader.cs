@@ -1,5 +1,6 @@
-﻿using Sloth.Interfaces;
-using Sloth.Learn;
+﻿using Sloth.Core;
+using Sloth.Interfaces.Core;
+using Sloth.Interfaces.Repeat;
 
 namespace Sloth.Repeat
 {

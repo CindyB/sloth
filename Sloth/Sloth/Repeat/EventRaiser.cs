@@ -1,7 +1,7 @@
-﻿using Sloth.Interfaces;
-using Sloth.Learn;
+﻿using Sloth.Core;
+using Sloth.Interfaces.Core;
+using Sloth.Interfaces.Repeat;
 using System;
-using System.Windows.Forms;
 
 namespace Sloth.Repeat
 {

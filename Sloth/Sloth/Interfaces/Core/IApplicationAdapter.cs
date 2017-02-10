@@ -1,6 +1,6 @@
-﻿using System.Windows.Forms;
+﻿using Sloth.Interfaces.Learn;
 
-namespace Sloth.Interfaces
+namespace Sloth.Interfaces.Core
 {
 
     public interface IApplicationAdapter

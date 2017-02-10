@@ -1,7 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Rhino.Mocks;
-
-using Sloth.Interfaces;
+using Sloth.Interfaces.Core;
+using Sloth.Interfaces.Repeat;
 using Sloth.Repeat;
 using System.Reflection;
 
