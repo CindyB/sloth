@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Sloth.Core;
 using Sloth.Interfaces.Learn;
 using Sloth.Learn;
 using System;
@@ -28,7 +29,7 @@ namespace Sloth.AcceptanceTests.Learn
 
         public void GivenEventListenerService()
         {
-            IEventListener eventListener = new EventListener();
+            IEventListener eventListener = new EventListener(new ApplicationAdapter(),new ControlAdapter(),new Logger(),new WinUtilities());
             eventListener.Start();
         }
 

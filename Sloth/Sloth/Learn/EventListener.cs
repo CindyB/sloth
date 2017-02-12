@@ -9,14 +9,16 @@ namespace Sloth.Learn
     public class EventListener : IEventListener
     {
         private IApplicationAdapter m_ApplicationAdapter;
+        private IControlAdapter m_ControlAdapter;
         private ILogger m_Logger;
         private IWinUtilities m_WinUtilities;
 
-        public EventListener()
+        public EventListener(IApplicationAdapter applicationAdapter,IControlAdapter controlAdapter, ILogger logger, IWinUtilities winUtilities)
         {
-            m_ApplicationAdapter = new ApplicationAdapter();
-            m_Logger = new Logger();
-            m_WinUtilities = new WinUtilities();
+            m_ApplicationAdapter = applicationAdapter;
+            m_ControlAdapter = controlAdapter;
+            m_Logger = logger;
+            m_WinUtilities = winUtilities;
         }
 
         public void Start()
@@ -26,12 +28,14 @@ namespace Sloth.Learn
 
         public bool PreFilterMessage(ref Message m)
         {
-            Control control = Control.FromHandle(m.HWnd);
-            if (control == null) return false;
-            IntPtr windowHandle = control.FindForm().Handle;
-            m_Logger.Log(m_WinUtilities.GetClassName(windowHandle) + ";" + m_WinUtilities.GetWindowText(windowHandle) + ";" + control.Name + ";" + m.ToString());
+            Control control = m_ControlAdapter.FromHandle(m.HWnd);
 
-            return false;
+            if (control == null) return false;
+
+            IntPtr windowHandle = control.FindForm().Handle;
+            m_Logger.Log(m_WinUtilities.GetClassName(windowHandle) + ";" + m_WinUtilities.GetWindowText(windowHandle) + ";" + control.Name + ";" + m.Msg);
+
+           return false;
         }
 
     }
