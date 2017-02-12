@@ -1,4 +1,5 @@
 ﻿using Sloth.Interfaces.Learn;
+using System.Windows.Forms;
 
 namespace Sloth.Interfaces.Core
 {
@@ -7,6 +8,8 @@ namespace Sloth.Interfaces.Core
     {
 
         void AddEventListenerAsMessageFilter(IEventListener eventListener);
+
+        FormCollection GetAllOpenForms();
 
     }
 

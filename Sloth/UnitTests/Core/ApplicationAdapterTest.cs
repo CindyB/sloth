@@ -2,6 +2,7 @@
 using Sloth.Core;
 using Sloth.Interfaces.Core;
 using System;
+using System.Windows.Forms;
 
 namespace Sloth.UnitTests.Core
 {
@@ -27,6 +28,16 @@ namespace Sloth.UnitTests.Core
         public void GivenEventListenerIsNothing_WhenAddEventListenerAsMessageFilter_ThenArgumentNullExceptionIsThrown()
         {
             m_Target.AddEventListenerAsMessageFilter(null);
+        }
+
+        [TestMethod()]
+        public void GivenApplicationWithOpenForms_WhenGetAllOpenForms_ThenAllOpenFormsOfApplicationAreReturned()
+        {
+            FormCollection expected = Application.OpenForms;
+
+            FormCollection actual = m_Target.GetAllOpenForms();
+
+            Assert.AreSame(expected, actual);
         }
 
     }
