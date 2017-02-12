@@ -9,8 +9,7 @@ namespace Sloth.Core
     {
         public Control FromHandle(IntPtr handle)
         {
-            //Control.FromHandle(m.HWnd);
-            throw new NotImplementedException();
+            return Control.FromHandle(handle);  
         }
     }
 
