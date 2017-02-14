@@ -14,17 +14,21 @@ namespace Sloth.Core
 
         public IntPtr FindWindowsHandle(string className,string windowsName)
         {
-            throw new NotImplementedException();
+            return FindWindow(className, windowsName);
         }
 
         public string GetClassName(IntPtr windowsHandle)
         {
-            throw new NotImplementedException();
+            StringBuilder builder = new StringBuilder(256);
+            GetClassName(windowsHandle, builder, builder.MaxCapacity);
+            return builder.ToString();
         }
 
         public string GetWindowText(IntPtr windowsHandle)
         {
-            throw new NotImplementedException();
+            StringBuilder builder = new StringBuilder(256);
+            GetWindowText(windowsHandle, builder, builder.MaxCapacity);
+            return builder.ToString();
         }
 
         public void SendMessage(IntPtr windowsHandle, IntPtr controlHandle, ISlothEvent slothEvent)
