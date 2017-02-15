@@ -18,7 +18,7 @@ namespace Sloth.AcceptanceTests.Automation
            SoThat = "Raise it")]
     public class ReadAndRaiseFormattedEvent
     {
-    private string m_logFileName = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + Path.DirectorySeparatorChar + "Sloth" + Path.DirectorySeparatorChar + "TestUserEvent.sloth";
+        private string m_logFileName = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + Path.DirectorySeparatorChar + "Sloth" + Path.DirectorySeparatorChar + "TestUserEvent.sloth";
         private ILogger m_Logger; 
 
         [TestInitialize]

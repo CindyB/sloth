@@ -3,6 +3,8 @@ using Rhino.Mocks;
 using Sloth.Core;
 using Sloth.Interfaces.Core;
 using System;
+using System.Runtime.InteropServices;
+using System.Text;
 using System.Windows.Forms;
 
 namespace Sloth.UnitTests.Core
@@ -10,7 +12,6 @@ namespace Sloth.UnitTests.Core
     [TestClass()]
     public class WinUtilitiesTest
     {
-
         private IWinUtilities m_Target;
 
         [TestInitialize]
@@ -63,9 +64,10 @@ namespace Sloth.UnitTests.Core
         public void GivenWindowsHandle_WhenGetClassName_ThenClassNameIsFound()
         {
             Form form = new Form();
-            form.Text = "Test";
             IntPtr windowsHandle = form.Handle;
-            string expected = form.GetType().Name;
+            StringBuilder builder = new StringBuilder(256);
+            GetClassName(windowsHandle, builder, builder.Capacity);
+            string expected = builder.ToString();
 
             string actual = m_Target.GetClassName(windowsHandle);
 
@@ -98,6 +100,9 @@ namespace Sloth.UnitTests.Core
 
             Assert.Fail();
         }
+
+        [DllImport("user32.dll", SetLastError = true, CharSet = CharSet.Auto)]
+        static extern int GetClassName(IntPtr hWnd, StringBuilder lpClassName, int nMaxCount);
 
     }
 

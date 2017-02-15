@@ -20,14 +20,14 @@ namespace Sloth.Core
         public string GetClassName(IntPtr windowsHandle)
         {
             StringBuilder builder = new StringBuilder(256);
-            GetClassName(windowsHandle, builder, builder.MaxCapacity);
+            GetClassName(windowsHandle, builder, builder.Capacity);
             return builder.ToString();
         }
 
         public string GetWindowText(IntPtr windowsHandle)
         {
             StringBuilder builder = new StringBuilder(256);
-            GetWindowText(windowsHandle, builder, builder.MaxCapacity);
+            GetWindowText(windowsHandle, builder, builder.Capacity);
             return builder.ToString();
         }
 
