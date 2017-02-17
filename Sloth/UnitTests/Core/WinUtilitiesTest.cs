@@ -61,21 +61,6 @@ namespace Sloth.UnitTests.Core
         }
 
         [TestMethod()]
-        public void GivenWindowsHandle_WhenGetClassName_ThenClassNameIsFound()
-        {
-            Form form = new Form();
-            IntPtr windowsHandle = form.Handle;
-            StringBuilder builder = new StringBuilder(256);
-            GetClassName(windowsHandle, builder, builder.Capacity);
-            string expected = builder.ToString();
-
-            string actual = m_Target.GetClassName(windowsHandle);
-
-            Assert.AreEqual(expected, actual);
-            form.Dispose();
-        }
-
-        [TestMethod()]
         public void GivenWindowsHandle_WhenGetWindowText_ThenWindowsTextIsFound()
         {
             Form form = new Form();
@@ -100,10 +85,6 @@ namespace Sloth.UnitTests.Core
 
             Assert.Fail();
         }
-
-        [DllImport("user32.dll", SetLastError = true, CharSet = CharSet.Auto)]
-        static extern int GetClassName(IntPtr hWnd, StringBuilder lpClassName, int nMaxCount);
-
     }
 
 }

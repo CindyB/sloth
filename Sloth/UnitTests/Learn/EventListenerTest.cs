@@ -102,7 +102,7 @@ namespace Sloth.UnitTests.Learn
 
             Message m = Message.Create(b.Handle, 513, IntPtr.Zero, IntPtr.Zero);
             m_ControlAdapter.Expect(x => x.FromHandle(m.HWnd)).Return(b);
-            string expectedMessage =  m_WinUtilities.GetClassName(formHandle)  + ";" + m_WinUtilities.GetWindowText(formHandle) + ";" + m_ControlAdapter.FromHandle(m.HWnd).Name + ";" + m.Msg;
+            string expectedMessage =  m_WinUtilities.GetWindowText(formHandle) + ";" + m_ControlAdapter.FromHandle(m.HWnd).Name + ";" + m.Msg;
 
             m_Target.PreFilterMessage(ref m);
 

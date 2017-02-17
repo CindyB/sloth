@@ -33,7 +33,7 @@ namespace Sloth.Learn
             if (control == null) return false;
 
             IntPtr windowHandle = control.FindForm().Handle;
-            m_Logger.Log(m_WinUtilities.GetClassName(windowHandle) + ";" + m_WinUtilities.GetWindowText(windowHandle) + ";" + control.Name + ";" + m.Msg);
+            m_Logger.Log(m_WinUtilities.GetWindowText(windowHandle) + ";" + control.Name + ";" + m.Msg);
 
            return false;
         }

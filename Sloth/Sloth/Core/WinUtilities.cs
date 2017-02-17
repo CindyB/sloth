@@ -17,13 +17,6 @@ namespace Sloth.Core
             return FindWindow(className, windowsName);
         }
 
-        public string GetClassName(IntPtr windowsHandle)
-        {
-            StringBuilder builder = new StringBuilder(256);
-            GetClassName(windowsHandle, builder, builder.Capacity);
-            return builder.ToString();
-        }
-
         public string GetWindowText(IntPtr windowsHandle)
         {
             StringBuilder builder = new StringBuilder(256);
@@ -38,9 +31,6 @@ namespace Sloth.Core
 
         [DllImport("user32.dll", SetLastError = true)]
         static extern IntPtr FindWindow(string lpClassName, string lpWindowName);
-
-        [DllImport("user32.dll", SetLastError = true, CharSet = CharSet.Auto)]
-        static extern int GetClassName(IntPtr hWnd, StringBuilder lpClassName, int nMaxCount);
 
         [DllImport("user32.dll")]
         static extern IntPtr GetDlgItem(IntPtr hDlg, int nIDDlgItem);
