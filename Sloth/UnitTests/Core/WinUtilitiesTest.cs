@@ -32,7 +32,6 @@ namespace Sloth.UnitTests.Core
             Form form = new Form();
             Button button = new Button();
             form.Controls.Add(button);
-            form.CreateControl();
 
             IntPtr windowsHandle = form.Handle;
             string controlName = button.Name;
@@ -40,8 +39,18 @@ namespace Sloth.UnitTests.Core
 
             IntPtr actual = m_Target.FindControlHandle(windowsHandle, controlName);
 
-            Assert.AreSame(expected, actual);
+            Assert.AreEqual(expected, actual);
             form.Dispose();
+        }
+
+        [TestMethod()]
+        public void GivenNoWindowsHandleAndControlName_WhenFindControlHandle_ThenControlHandleIsFound()
+        {
+            IntPtr expected = IntPtr.Zero;
+
+            IntPtr actual = m_Target.FindControlHandle(IntPtr.Zero, "MyControl");
+
+            Assert.AreEqual(expected, actual);
         }
 
         [TestMethod()]
@@ -49,7 +58,7 @@ namespace Sloth.UnitTests.Core
         {
             Form form = new Form();
             form.Text = "Test";
-            form.CreateControl();
+            
             string className = null;
             string windowsName = form.Text;
             IntPtr expected = form.Handle;
