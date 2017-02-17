@@ -35,10 +35,9 @@ namespace Sloth.UnitTests.Repeat
         [TestMethod()]
         public void GivenSlothEventWithClassNameAndWindowsName_WhenRaiseSlothEvent_ThenWindowsHandleIsFound()
         {
-            string className = "MyClass";
+            string className = null;
             string windowsName = "MyWindows";
             ISlothEvent slothEvent = MockRepository.GenerateMock<ISlothEvent>();
-            slothEvent.Expect(x => x.ClassName).Return(className);
             slothEvent.Expect(x => x.WindowsName).Return(windowsName);
 
             m_Target.RaiseSlothEvent(slothEvent);
@@ -53,7 +52,7 @@ namespace Sloth.UnitTests.Repeat
             ISlothEvent slothEvent = MockRepository.GenerateMock<ISlothEvent>();
             slothEvent.Expect(x => x.ControlName).Return(controlName);
             IntPtr windowsHandle = new IntPtr(666);
-            m_WinUtilities.Expect(x => x.FindWindowsHandle(slothEvent.ClassName,slothEvent.WindowsName)).Return(windowsHandle);
+            m_WinUtilities.Expect(x => x.FindWindowsHandle(null,slothEvent.WindowsName)).Return(windowsHandle);
 
             m_Target.RaiseSlothEvent(slothEvent);
 
@@ -65,7 +64,7 @@ namespace Sloth.UnitTests.Repeat
         {
             ISlothEvent slothEvent = MockRepository.GenerateMock<ISlothEvent>();
             IntPtr windowsHandle = new IntPtr(666);
-            m_WinUtilities.Expect(x => x.FindWindowsHandle(slothEvent.ClassName, slothEvent.WindowsName)).Return(windowsHandle);
+            m_WinUtilities.Expect(x => x.FindWindowsHandle(null, slothEvent.WindowsName)).Return(windowsHandle);
             IntPtr controlHandle = new IntPtr(777);
             m_WinUtilities.Expect(x => x.FindControlHandle(windowsHandle, slothEvent.ControlName)).Return(controlHandle);
 

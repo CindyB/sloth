@@ -5,19 +5,6 @@ namespace Sloth.Core
 {
     public class SlothEvent : ISlothEvent
     {
-        public string ClassName
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
-
-            set
-            {
-                throw new NotImplementedException();
-            }
-        }
-
         public string ControlName
         {
             get
