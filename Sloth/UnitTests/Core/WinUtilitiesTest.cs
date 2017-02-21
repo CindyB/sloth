@@ -94,8 +94,9 @@ namespace Sloth.UnitTests.Core
             ISlothEvent slothEvent = MockRepository.GenerateMock<ISlothEvent>();
             slothEvent.ControlName = button.Name;
             slothEvent.WindowsName = form.Name;
+            slothEvent.Message = (uint)WM.LBUTTONDOWN;
 
-            //m_Target.SendMessage(windowsHandle,controlHandle,slothEvent);
+            m_Target.SendMessage(windowsHandle,controlHandle,slothEvent);
 
             Assert.Fail();
         }
