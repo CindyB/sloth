@@ -5,16 +5,27 @@ namespace Sloth.Core
 {
     public class SlothEvent : ISlothEvent
     {
+        private string controlName;
+        private uint message;
+        private string windowsName;
+
+        public SlothEvent()
+        {
+            controlName = string.Empty;
+            message = uint.MinValue;
+            windowsName = string.Empty;
+        }
+
         public string ControlName
         {
             get
             {
-                throw new NotImplementedException();
+                return controlName;
             }
 
             set
             {
-                throw new NotImplementedException();
+                controlName = value;
             }
         }
 
@@ -22,12 +33,12 @@ namespace Sloth.Core
         {
             get
             {
-                throw new NotImplementedException();
+                return message;
             }
 
             set
             {
-                throw new NotImplementedException();
+                message = value;
             }
         }
 
@@ -35,12 +46,12 @@ namespace Sloth.Core
         {
             get
             {
-                throw new NotImplementedException();
+                return windowsName;
             }
 
             set
             {
-                throw new NotImplementedException();
+                windowsName = value;
             }
         }
     }
