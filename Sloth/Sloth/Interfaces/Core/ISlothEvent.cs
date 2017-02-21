@@ -3,9 +3,12 @@
 
     public interface ISlothEvent
     {
-        string WindowsName { get; set; }
 
         string ControlName { get; set; }
+
+        uint Message { get; set; }
+
+        string WindowsName { get; set; }
     }
 
 }

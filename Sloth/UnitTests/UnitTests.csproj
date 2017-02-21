@@ -56,6 +56,7 @@
   <ItemGroup>
     <Compile Include="Core\WinUtilitiesTest.cs" />
     <Compile Include="Core\ControlAdapterTest.cs" />
+    <Compile Include="Repeat\EventConverterTest.cs" />
     <Compile Include="Repeat\AutomatonTest.cs" />
     <Compile Include="Repeat\EventRaiserTest.cs" />
     <Compile Include="Repeat\EventReaderTest.cs" />

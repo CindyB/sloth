@@ -45,6 +45,7 @@
     <Compile Include="Core\SlothEvent.cs" />
     <Compile Include="Interfaces\Core\IControlAdapter.cs" />
     <Compile Include="Interfaces\Core\IWinUtilities.cs" />
+    <Compile Include="Interfaces\Core\WindowsMessages.cs" />
     <Compile Include="Repeat\Automaton.cs" />
     <Compile Include="Repeat\EventConverter.cs" />
     <Compile Include="Core\WinUtilities.cs" />

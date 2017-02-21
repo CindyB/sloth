@@ -84,11 +84,16 @@ namespace Sloth.UnitTests.Core
         }
 
         [TestMethod()]
-        public void GivenWindowsAndControlHandleWithSlothEvent_WhenSendMessage_ThenXXXXX()
+        public void GivenWindowsAndControlHandleWithSlothEvent_WhenSendMessage_ThenControlReceiveMessage()
         {
-            //IntPtr windowsHandle;
-            //IntPtr controlHandle;
-            //ISlothEvent slothEvent = MockRepository.GenerateMock<ISlothEvent>();
+            Form form = new Form();
+            Button button = new Button();
+            form.Controls.Add(button);
+            IntPtr windowsHandle = form.Handle;
+            IntPtr controlHandle = button.Handle;
+            ISlothEvent slothEvent = MockRepository.GenerateMock<ISlothEvent>();
+            slothEvent.ControlName = button.Name;
+            slothEvent.WindowsName = form.Name;
 
             //m_Target.SendMessage(windowsHandle,controlHandle,slothEvent);
 

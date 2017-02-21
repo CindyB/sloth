@@ -18,6 +18,19 @@ namespace Sloth.Core
             }
         }
 
+        public uint Message
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
         public string WindowsName
         {
             get
