@@ -1,6 +1,8 @@
-﻿using Sloth.Interfaces.Core;
+﻿using Sloth.Core;
+using Sloth.Interfaces.Core;
 using Sloth.Interfaces.Repeat;
 using System;
+using System.Collections.Generic;
 
 namespace Sloth.Repeat
 {
@@ -8,14 +10,21 @@ namespace Sloth.Repeat
     {
         private const char CHR_LineSeparator = ';';
 
-        public ISlothEvent[] ConvertToSlothEvents(string[] lines)
+        public IList<ISlothEvent> ConvertToSlothEvents(string[] lines)
         {
             if (lines == null) throw new ArgumentNullException("lines");
             if (lines.Length == 0) throw new ArgumentException("lines");
 
-            lines[0].Split(CHR_LineSeparator);
+            IList<ISlothEvent> slothEvents = new List<ISlothEvent>();
 
-            return null;
+            foreach(string line in lines)
+            {
+                string[] information = lines[0].Split(CHR_LineSeparator);
+                slothEvents.Add(new SlothEvent(information[0], information[1], uint.Parse(information[2])));
+            }
+
+
+            return slothEvents;
         }
     }
 

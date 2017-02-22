@@ -1,4 +1,5 @@
 ﻿using Sloth.Interfaces.Core;
+using System.Collections.Generic;
 
 namespace Sloth.Interfaces.Repeat
 {
@@ -6,7 +7,7 @@ namespace Sloth.Interfaces.Repeat
     public interface IEventReader
     {
 
-        ISlothEvent[] ReadEvents(string filePath);
+        IList<ISlothEvent> ReadEvents(string filePath);
 
     }
 

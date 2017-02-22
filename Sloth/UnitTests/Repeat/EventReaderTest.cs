@@ -3,6 +3,7 @@ using Rhino.Mocks;
 using Sloth.Interfaces.Core;
 using Sloth.Interfaces.Repeat;
 using Sloth.Repeat;
+using System.Collections.Generic;
 using System.Reflection;
 
 namespace Sloth.UnitTests.Repeat
@@ -64,10 +65,10 @@ namespace Sloth.UnitTests.Repeat
             string filePath = this.GetType().Assembly.Location;
             string[] lines = {"MyButton;Click"};
             m_FileAdapter.Expect(x => x.ReadAllLines(filePath)).Return(lines);
-            ISlothEvent[] expected = { MockRepository.GenerateMock<ISlothEvent>(), MockRepository.GenerateMock<ISlothEvent>()};
+            IList<ISlothEvent> expected = new List<ISlothEvent>(){ MockRepository.GenerateMock<ISlothEvent>(), MockRepository.GenerateMock<ISlothEvent>()};
             m_EventConverter.Expect(x => x.ConvertToSlothEvents(lines)).Return(expected);
 
-            ISlothEvent[] actual = m_Target.ReadEvents(filePath);
+            IList<ISlothEvent> actual = m_Target.ReadEvents(filePath);
 
             Assert.AreSame(expected, actual);
         }

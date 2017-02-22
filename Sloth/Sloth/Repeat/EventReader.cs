@@ -1,6 +1,7 @@
 ﻿using Sloth.Core;
 using Sloth.Interfaces.Core;
 using Sloth.Interfaces.Repeat;
+using System.Collections.Generic;
 
 namespace Sloth.Repeat
 {
@@ -16,7 +17,7 @@ namespace Sloth.Repeat
         m_FileAdapter = new FileAdapter();
         }
 
-        public ISlothEvent[] ReadEvents(string filePath)
+        public IList<ISlothEvent> ReadEvents(string filePath)
         {
             return m_EventConverter.ConvertToSlothEvents(m_FileAdapter.ReadAllLines(filePath));
         }

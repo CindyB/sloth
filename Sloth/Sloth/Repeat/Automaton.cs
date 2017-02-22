@@ -1,6 +1,7 @@
 ﻿using Sloth.Interfaces.Core;
 using Sloth.Interfaces.Repeat;
 using System;
+using System.Collections.Generic;
 using System.IO;
 
 namespace Sloth.Repeat
@@ -23,7 +24,7 @@ namespace Sloth.Repeat
             if (string.IsNullOrEmpty(filePath)) throw new ArgumentException("filePath");
             if (!File.Exists(filePath)) throw new FileNotFoundException(filePath);
 
-            ISlothEvent[] eventsToRaise = m_EventReader.ReadEvents(filePath);
+            IList<ISlothEvent> eventsToRaise = m_EventReader.ReadEvents(filePath);
             if (eventsToRaise == null) return;
 
             foreach (ISlothEvent eventToRaise in eventsToRaise)
