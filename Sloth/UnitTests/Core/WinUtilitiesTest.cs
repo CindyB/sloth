@@ -12,11 +12,13 @@ namespace Sloth.UnitTests.Core
     [TestClass()]
     public class WinUtilitiesTest
     {
+        private bool buttonClick;
         private IWinUtilities m_Target;
 
         [TestInitialize]
         public void TestInitialize()
         {
+            buttonClick = false;
             m_Target = new WinUtilities();
         }
 
@@ -88,6 +90,7 @@ namespace Sloth.UnitTests.Core
         {
             Form form = new Form();
             Button button = new Button();
+            button.Click += Button_Click;
             form.Controls.Add(button);
             IntPtr windowsHandle = form.Handle;
             IntPtr controlHandle = button.Handle;
@@ -98,7 +101,12 @@ namespace Sloth.UnitTests.Core
 
             m_Target.SendMessage(windowsHandle,controlHandle,slothEvent);
 
-            Assert.Fail();
+            Assert.IsTrue(buttonClick);
+        }
+
+        private void Button_Click(object sender, EventArgs e)
+        {
+            buttonClick = true;
         }
     }
 
