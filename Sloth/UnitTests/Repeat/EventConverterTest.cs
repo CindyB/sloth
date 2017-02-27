@@ -4,8 +4,7 @@ using Sloth.Interfaces.Core;
 using Sloth.Interfaces.Repeat;
 using Sloth.Repeat;
 using System;
-using System.IO;
-using System.Reflection;
+using System.Collections.Generic;
 
 namespace Sloth.UnitTests.Repeat
 {
@@ -40,45 +39,25 @@ namespace Sloth.UnitTests.Repeat
         }
 
         [TestMethod()]
-        public void GivenLine_WhenConvertToSlothEvents_ThenLineIsSplittedByInformationType()
-        {
-           string line = MockRepository.GenerateMock<string>();
-            
-            m_Target.ConvertToSlothEvents(new string[]{line});
-
-            line.AssertWasCalled(x => x.Split(CHR_LineSeparator));
-        }
-
-        [TestMethod()]
-        public void GivenLines_WhenConvertToSlothEvents_ThenAllLinesAreManaged()
-        {
-            string[] lines = new string[] { MockRepository.GenerateMock<string>(), MockRepository.GenerateMock<string>(), MockRepository.GenerateMock<string>() };
-
-            m_Target.ConvertToSlothEvents(lines);
-
-            foreach(string line in lines)
-                line.AssertWasCalled(x => x.Split(CHR_LineSeparator));
-        }
-
-        [TestMethod()]
         public void GivenLine_WhenConvertToSlothEvents_ThenCorrespondingSlothEventIsReturned()
         {
+            int numberOfEvent = 1;
             string windowsName = "MyWindows";
             string controlName = "MyButton";
             uint message = (uint)WM.LBUTTONDOWN;
 
-            string line = MockRepository.GenerateMock<string>();
-            //TODO MOCK LINE
+            string line = windowsName + CHR_LineSeparator + controlName + CHR_LineSeparator + message.ToString();
             ISlothEvent expected = MockRepository.GenerateMock<ISlothEvent>();
             expected.Expect(x => x.WindowsName).Return(windowsName);
             expected.Expect(x => x.ControlName).Return(controlName);
             expected.Expect(x => x.Message).Return(message);
 
-            ISlothEvent actual = m_Target.ConvertToSlothEvents(new string[] { line })[0];
+            IList<ISlothEvent> actual = m_Target.ConvertToSlothEvents(new string[] { line });
 
-            Assert.AreEqual(expected.WindowsName, actual.WindowsName);
-            Assert.AreEqual(expected.ControlName, actual.ControlName);
-            Assert.AreEqual(expected.Message, actual.Message);
+            Assert.AreEqual(numberOfEvent, actual.Count);
+            Assert.AreEqual(expected.WindowsName, actual[0].WindowsName);
+            Assert.AreEqual(expected.ControlName, actual[0].ControlName);
+            Assert.AreEqual(expected.Message, actual[0].Message);
         }
 
     }

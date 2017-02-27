@@ -1,5 +1,4 @@
 ﻿using Sloth.Interfaces.Core;
-using System;
 
 namespace Sloth.Core
 {
@@ -14,6 +13,13 @@ namespace Sloth.Core
             controlName = string.Empty;
             message = uint.MinValue;
             windowsName = string.Empty;
+        }
+
+        public SlothEvent(string windowsName,string controlName,uint message)
+        {
+            this.controlName = controlName;
+            this.message = message;
+            this.windowsName = windowsName;
         }
 
         public string ControlName

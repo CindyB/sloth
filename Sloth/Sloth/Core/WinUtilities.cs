@@ -34,7 +34,7 @@ namespace Sloth.Core
 
         public void SendMessage(IntPtr windowsHandle, IntPtr controlHandle, ISlothEvent slothEvent)
         {
-            throw new NotImplementedException();
+            SendMessage(controlHandle, slothEvent.Message,IntPtr.Zero,IntPtr.Zero);
         }
 
 
