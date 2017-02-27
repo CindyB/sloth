@@ -7,7 +7,7 @@ using System;
 using System.IO;
 
 using System.Reflection;
-
+using System.Windows.Forms;
 using TestStack.BDDfy;
 
 namespace Sloth.AcceptanceTests.Automation
@@ -18,8 +18,11 @@ namespace Sloth.AcceptanceTests.Automation
            SoThat = "Raise it")]
     public class ReadAndRaiseFormattedEvent
     {
+        private Button button;
+        private Boolean buttonClicked;
+        private Form form;
         private string m_logFileName = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + Path.DirectorySeparatorChar + "Sloth" + Path.DirectorySeparatorChar + "TestUserEvent.sloth";
-        private ILogger m_Logger; 
+        private ILogger m_Logger;
 
         [TestInitialize]
         public void TestInitialize()
@@ -31,6 +34,9 @@ namespace Sloth.AcceptanceTests.Automation
         [TestCleanup]
         public void TestCleanup()
         {
+            button = null;
+            form = null;
+
             m_Logger.GetType().GetField("m_FilePath", BindingFlags.NonPublic | BindingFlags.Instance).SetValue(m_Logger, null);
             m_Logger = null;
 
@@ -42,6 +48,24 @@ namespace Sloth.AcceptanceTests.Automation
             m_Logger.Log(eventLine);
         }
 
+        public void GivenFormWithButton(string formText, string buttonName)
+        {
+            form = new Form();
+            form.Text = formText;
+
+            button = new Button();
+            button.Name = buttonName;
+            form.Controls.Add(button);
+            button.Click += Button_Click;
+
+            buttonClicked = false;
+        }
+
+        private void Button_Click(object sender, EventArgs e)
+        {
+            buttonClicked = true;
+        }
+
         public void WhenReadAndRaiseFirstEvent()
         {
             IAutomaton auto = new Automaton();
@@ -50,13 +74,14 @@ namespace Sloth.AcceptanceTests.Automation
 
         public void ThenFirstEventReadIsRaised()
         {
-            throw new NotImplementedException();
+            Assert.IsTrue(buttonClicked);
         }
 
         [TestMethod]
         public void ReadEventRaised()
         { 
-            this.Given(x => x.GivenUserEventLogFileWithUserEvent("MyButton;Click"), "A user event log file with user event {0}")
+            this.Given(x => x.GivenUserEventLogFileWithUserEvent("MyForm;MyButton;513"), "A user event log file with user event {0}")
+                .And(x => x.GivenFormWithButton("MyForm","MyButton"),"And form {0} with button {1}")
             .When(x => x.WhenReadAndRaiseFirstEvent(), "When read file and raise first event")
                 .Then(x => x.ThenFirstEventReadIsRaised(), "Then first user event read in file is raised")
                 .BDDfy();
