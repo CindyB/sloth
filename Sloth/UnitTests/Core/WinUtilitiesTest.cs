@@ -5,6 +5,7 @@ using Sloth.Interfaces.Core;
 using System;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace Sloth.UnitTests.Core
@@ -84,7 +85,7 @@ namespace Sloth.UnitTests.Core
             Assert.AreEqual(expected, actual);
             form.Dispose();
         }
-
+        const int BM_CLICK = 0x00F5;
         [TestMethod()]
         public void GivenWindowsAndControlHandleWithSlothEvent_WhenSendMessage_ThenControlReceiveMessage()
         {
@@ -97,10 +98,13 @@ namespace Sloth.UnitTests.Core
             ISlothEvent slothEvent = MockRepository.GenerateMock<ISlothEvent>();
             slothEvent.ControlName = button.Name;
             slothEvent.WindowsName = form.Name;
-            slothEvent.Message = (uint)WM.LBUTTONDOWN;
-
+            slothEvent.Message = BM_CLICK;
+            form.ShowDialog();
+            
             m_Target.SendMessage(windowsHandle,controlHandle,slothEvent);
 
+
+            SpinWait.SpinUntil(() => buttonClick, 30000);
             Assert.IsTrue(buttonClick);
         }
 
