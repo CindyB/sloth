@@ -5,8 +5,6 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sloth", "Sloth\Sloth.csproj", "{8FC39ADE-93FF-434B-8FF7-EB62AB7A043A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AcceptanceTests", "AcceptanceTests\AcceptanceTests.csproj", "{5E74E14F-E4A1-432A-A1CF-0858E8642BE4}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "UnitTests\UnitTests.csproj", "{96573CEA-1AEC-4863-AEE9-F4CC532AF286}"
 EndProject
 Global
@@ -19,10 +17,6 @@ Global
 		{8FC39ADE-93FF-434B-8FF7-EB62AB7A043A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8FC39ADE-93FF-434B-8FF7-EB62AB7A043A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8FC39ADE-93FF-434B-8FF7-EB62AB7A043A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5E74E14F-E4A1-432A-A1CF-0858E8642BE4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5E74E14F-E4A1-432A-A1CF-0858E8642BE4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5E74E14F-E4A1-432A-A1CF-0858E8642BE4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5E74E14F-E4A1-432A-A1CF-0858E8642BE4}.Release|Any CPU.Build.0 = Release|Any CPU
 		{96573CEA-1AEC-4863-AEE9-F4CC532AF286}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{96573CEA-1AEC-4863-AEE9-F4CC532AF286}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{96573CEA-1AEC-4863-AEE9-F4CC532AF286}.Release|Any CPU.ActiveCfg = Release|Any CPU
