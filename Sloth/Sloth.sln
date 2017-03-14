@@ -1,11 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.26228.4
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sloth", "Sloth\Sloth.csproj", "{8FC39ADE-93FF-434B-8FF7-EB62AB7A043A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "UnitTests\UnitTests.csproj", "{96573CEA-1AEC-4863-AEE9-F4CC532AF286}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AcceptanceTests", "AcceptanceTests\AcceptanceTests.csproj", "{587F836A-BD3D-4E7B-BC2F-663B89E3A21D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{96573CEA-1AEC-4863-AEE9-F4CC532AF286}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{96573CEA-1AEC-4863-AEE9-F4CC532AF286}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{96573CEA-1AEC-4863-AEE9-F4CC532AF286}.Release|Any CPU.Build.0 = Release|Any CPU
+		{587F836A-BD3D-4E7B-BC2F-663B89E3A21D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{587F836A-BD3D-4E7B-BC2F-663B89E3A21D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{587F836A-BD3D-4E7B-BC2F-663B89E3A21D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{587F836A-BD3D-4E7B-BC2F-663B89E3A21D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
