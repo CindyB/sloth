@@ -4,7 +4,7 @@ using System.Windows.Forms;
 
 namespace Sloth.UnitTests.Core
 {
-    class MessageOnlyWindow : Form
+    public class MessageOnlyWindow : Form
     {
         public bool NullEventReceived { get; set; }
 
