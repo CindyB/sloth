@@ -1,10 +1,9 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MyAPI;
 using Rhino.Mocks;
 using Sloth.Core;
 using Sloth.Interfaces.Core;
 using System;
-using System.Runtime.InteropServices;
-using System.Text;
 using System.Threading;
 using System.Windows.Forms;
 
@@ -85,32 +84,22 @@ namespace Sloth.UnitTests.Core
             Assert.AreEqual(expected, actual);
             form.Dispose();
         }
-        const int BM_CLICK = 0x00F5;
+        
         [TestMethod()]
         public void GivenWindowsAndControlHandleWithSlothEvent_WhenSendMessage_ThenControlReceiveMessage()
         {
-            Form form = new Form();
-            Button button = new Button();
-            button.Click += Button_Click;
-            form.Controls.Add(button);
-            IntPtr windowsHandle = form.Handle;
-            IntPtr controlHandle = button.Handle;
+            MessageOnlyWindow windows = new MessageOnlyWindow();
+            IntPtr windowsHandle = windows.Handle;
+            IntPtr controlHandle = windows.Handle;
             ISlothEvent slothEvent = MockRepository.GenerateMock<ISlothEvent>();
-            slothEvent.ControlName = button.Name;
-            slothEvent.WindowsName = form.Name;
-            slothEvent.Message = BM_CLICK;
-            form.ShowDialog();
+            slothEvent.ControlName = windows.Name;
+            slothEvent.WindowsName = windows.Name;
+            slothEvent.Message = 0x0;
             
             m_Target.SendMessage(windowsHandle,controlHandle,slothEvent);
 
-
-            SpinWait.SpinUntil(() => buttonClick, 30000);
-            Assert.IsTrue(buttonClick);
-        }
-
-        private void Button_Click(object sender, EventArgs e)
-        {
-            buttonClick = true;
+            SpinWait.SpinUntil(() => windows.NullEventReceived, 30000);
+            Assert.IsTrue(windows.NullEventReceived);
         }
     }
 

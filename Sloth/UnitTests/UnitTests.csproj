@@ -54,6 +54,9 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="Core\MessageOnlyWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Core\WinUtilitiesTest.cs" />
     <Compile Include="Core\ControlAdapterTest.cs" />
     <Compile Include="Repeat\EventConverterTest.cs" />
