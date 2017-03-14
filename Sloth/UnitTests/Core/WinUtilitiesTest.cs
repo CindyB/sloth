@@ -1,5 +1,4 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using MyAPI;
 using Rhino.Mocks;
 using Sloth.Core;
 using Sloth.Interfaces.Core;
@@ -12,13 +11,11 @@ namespace Sloth.UnitTests.Core
     [TestClass()]
     public class WinUtilitiesTest
     {
-        private bool buttonClick;
         private IWinUtilities m_Target;
 
         [TestInitialize]
         public void TestInitialize()
         {
-            buttonClick = false;
             m_Target = new WinUtilities();
         }
 

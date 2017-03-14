@@ -2,9 +2,8 @@
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
-namespace MyAPI
+namespace Sloth.UnitTests.Core
 {
-    // Message Only Window
     class MessageOnlyWindow : Form
     {
         public bool NullEventReceived { get; set; }
