@@ -13,12 +13,12 @@ using System.Reflection;
 namespace Sloth.AcceptanceTests.Learn
 {
     [TestClass, Story(Title = "Catch a user event and log it raw",
-                      AsA = "Developer",
-           IWant = "To catch a raw user event",
-           SoThat = "I can log it")]
+                    AsA = "Developer",
+                    IWant = "To catch a raw user event",
+                    SoThat = "I can log it")]
     public class CatchAndLogRawEvent
     {
-        private string logFileName = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + Path.DirectorySeparatorChar + "Sloth" + Path.DirectorySeparatorChar + "UserEvent.sloth";
+        private string logFileName = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + Path.DirectorySeparatorChar + "Sloth" + Path.DirectorySeparatorChar + "TestUserEvent.sloth";
         private const string eventLine = ";;0";
         private ILogger m_Logger;
         private ISlothEvent slothEvent;
@@ -30,6 +30,8 @@ namespace Sloth.AcceptanceTests.Learn
         {
             m_Logger = new Logger();
             m_Logger.GetType().GetField("m_FilePath", BindingFlags.NonPublic | BindingFlags.Instance).SetValue(m_Logger, logFileName);
+
+            File.Delete(logFileName);
         }
 
         [TestCleanup]
@@ -37,8 +39,6 @@ namespace Sloth.AcceptanceTests.Learn
         {
             m_Logger.GetType().GetField("m_FilePath", BindingFlags.NonPublic | BindingFlags.Instance).SetValue(m_Logger, null);
             m_Logger = null;
-
-            File.Delete(logFileName);
         }
 
         public void GivenWindows(string buttonName)
