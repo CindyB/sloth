@@ -3,7 +3,7 @@
 namespace Sloth.Interfaces.Learn
 {
 
-    public interface IEventListener : IMessageFilter
+    public interface IEventListener
     {
 
         void Start();

@@ -23,19 +23,7 @@ namespace Sloth.Learn
 
         public void Start()
         { 
-            m_ApplicationAdapter.AddEventListenerAsMessageFilter(this);
-        }
-
-        public bool PreFilterMessage(ref Message m)
-        {
-            Control control = m_ControlAdapter.FromHandle(m.HWnd);
-
-            if (control == null) return false;
-
-            IntPtr windowHandle = control.FindForm().Handle;
-            m_Logger.Log(m_WinUtilities.GetWindowText(windowHandle) + ";" + control.Name + ";" + m.Msg);
-
-           return false;
+           
         }
 
     }

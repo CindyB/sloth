@@ -43,83 +43,83 @@ namespace Sloth.UnitTests.Learn
             m_Target = null;
         }
 
-        [TestMethod()]
-        public void GivenApplicationAdapter_WhenStart_ThenListenerIsAddedAsMessageFilter()
-        { 
-            IApplicationAdapter adapter = m_ApplicationAdapter;
+        //[TestMethod()]
+        //public void GivenApplicationAdapter_WhenStart_ThenListenerIsAddedAsMessageFilter()
+        //{ 
+        //    IApplicationAdapter adapter = m_ApplicationAdapter;
 
-            m_Target.Start();
+        //    m_Target.Start();
 
             
-            adapter.AssertWasCalled(x => x.AddEventListenerAsMessageFilter(m_Target));
-        }
+        //    adapter.AssertWasCalled(x => x.AddEventListenerAsMessageFilter(m_Target));
+        //}
 
-        [TestMethod()]
-        public void GivenMessageWithControlHandle_WhenPreFilterMessage_ThenControlIsGet()
-        {
-            Message m = Message.Create(IntPtr.Zero, 513, IntPtr.Zero, IntPtr.Zero);
+        //[TestMethod()]
+        //public void GivenMessageWithControlHandle_WhenPreFilterMessage_ThenControlIsGet()
+        //{
+        //    Message m = Message.Create(IntPtr.Zero, 513, IntPtr.Zero, IntPtr.Zero);
 
-            m_Target.PreFilterMessage(ref m);
+        //    m_Target.PreFilterMessage(ref m);
 
-            m_ControlAdapter.AssertWasCalled(x => x.FromHandle(m.HWnd));
-        }
+        //    m_ControlAdapter.AssertWasCalled(x => x.FromHandle(m.HWnd));
+        //}
 
-        [TestMethod()]
-        public void GivenNoControlHandleFoundFromMessage_WhenPreFilterMessage_ThenLoggingIsAborted()
-        {
-            Message m = Message.Create(IntPtr.Zero, 513, IntPtr.Zero, IntPtr.Zero);
+        //[TestMethod()]
+        //public void GivenNoControlHandleFoundFromMessage_WhenPreFilterMessage_ThenLoggingIsAborted()
+        //{
+        //    Message m = Message.Create(IntPtr.Zero, 513, IntPtr.Zero, IntPtr.Zero);
 
-            m_Target.PreFilterMessage(ref m);
-        }
+        //    m_Target.PreFilterMessage(ref m);
+        //}
 
-        [TestMethod()]
-        public void GivenMessageFromControl_WhenPreFilterMessage_ThenFormHandleOfControlIsGet()
-        {
-            IntPtr formHandle = new IntPtr(666);
-            Form f = MockRepository.GenerateMock<Form>();
-            f.Expect(x => x.Handle).Return(formHandle);
+        //[TestMethod()]
+        //public void GivenMessageFromControl_WhenPreFilterMessage_ThenFormHandleOfControlIsGet()
+        //{
+        //    IntPtr formHandle = new IntPtr(666);
+        //    Form f = MockRepository.GenerateMock<Form>();
+        //    f.Expect(x => x.Handle).Return(formHandle);
 
-            Button b = MockRepository.GenerateMock<Button>();
-            b.Expect(x => x.FindForm()).Return(f);
+        //    Button b = MockRepository.GenerateMock<Button>();
+        //    b.Expect(x => x.FindForm()).Return(f);
 
-            Message m = Message.Create(b.Handle, 513, IntPtr.Zero, IntPtr.Zero);
-            m_ControlAdapter.Expect(x => x.FromHandle(m.HWnd)).Return(b);
+        //    Message m = Message.Create(b.Handle, 513, IntPtr.Zero, IntPtr.Zero);
+        //    m_ControlAdapter.Expect(x => x.FromHandle(m.HWnd)).Return(b);
 
-            m_Target.PreFilterMessage(ref m);
+        //    m_Target.PreFilterMessage(ref m);
 
-            b.AssertWasCalled(x => x.FindForm().Handle);
-        }
+        //    b.AssertWasCalled(x => x.FindForm().Handle);
+        //}
 
-        [TestMethod()]
-        public void GivenFormHandleAndControl_WhenPreFilterMessage_ThenHandledMessageIsLog()
-        {
-            IntPtr formHandle = new IntPtr(666);
-            Form f = MockRepository.GenerateMock<Form>();
-            f.Expect(x => x.Handle).Return(formHandle);
+        //[TestMethod()]
+        //public void GivenFormHandleAndControl_WhenPreFilterMessage_ThenHandledMessageIsLog()
+        //{
+        //    IntPtr formHandle = new IntPtr(666);
+        //    Form f = MockRepository.GenerateMock<Form>();
+        //    f.Expect(x => x.Handle).Return(formHandle);
 
-            Button b = MockRepository.GenerateMock<Button>();
-            b.Expect(x => x.FindForm()).Return(f);
+        //    Button b = MockRepository.GenerateMock<Button>();
+        //    b.Expect(x => x.FindForm()).Return(f);
 
-            Message m = Message.Create(b.Handle, 513, IntPtr.Zero, IntPtr.Zero);
-            m_ControlAdapter.Expect(x => x.FromHandle(m.HWnd)).Return(b);
-            string expectedMessage =  m_WinUtilities.GetWindowText(formHandle) + ";" + m_ControlAdapter.FromHandle(m.HWnd).Name + ";" + m.Msg;
+        //    Message m = Message.Create(b.Handle, 513, IntPtr.Zero, IntPtr.Zero);
+        //    m_ControlAdapter.Expect(x => x.FromHandle(m.HWnd)).Return(b);
+        //    string expectedMessage =  m_WinUtilities.GetWindowText(formHandle) + ";" + m_ControlAdapter.FromHandle(m.HWnd).Name + ";" + m.Msg;
 
-            m_Target.PreFilterMessage(ref m);
+        //    m_Target.PreFilterMessage(ref m);
 
-            m_Logger.AssertWasCalled(x => x.Log(expectedMessage));
-        }
+        //    m_Logger.AssertWasCalled(x => x.Log(expectedMessage));
+        //}
 
-        [TestMethod()]
-        public void GivenMessageFromControl_WhenPreFilterMessage_ThenMessageContinueToNextFilter()
-        {
-            Button b = new Button();
-            Message m = Message.Create(b.Handle, 513, IntPtr.Zero, IntPtr.Zero);
-            bool expected = false;
+        //[TestMethod()]
+        //public void GivenMessageFromControl_WhenPreFilterMessage_ThenMessageContinueToNextFilter()
+        //{
+        //    Button b = new Button();
+        //    Message m = Message.Create(b.Handle, 513, IntPtr.Zero, IntPtr.Zero);
+        //    bool expected = false;
 
-            bool actual = m_Target.PreFilterMessage(ref m);
+        //    bool actual = m_Target.PreFilterMessage(ref m);
 
-            Assert.AreEqual(expected, actual);
-        }
+        //    Assert.AreEqual(expected, actual);
+        //}
 
     }
 

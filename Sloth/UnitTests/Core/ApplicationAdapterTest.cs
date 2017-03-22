@@ -24,12 +24,6 @@ namespace Sloth.UnitTests.Core
             m_Target = null;
         }
 
-        [TestMethod(), ExpectedException(typeof(ArgumentNullException))]
-        public void GivenEventListenerIsNothing_WhenAddEventListenerAsMessageFilter_ThenArgumentNullExceptionIsThrown()
-        {
-            m_Target.AddEventListenerAsMessageFilter(null);
-        }
-
         [TestMethod()]
         public void GivenApplicationWithOpenForms_WhenGetAllOpenForms_ThenAllOpenFormsOfApplicationAreReturned()
         {
