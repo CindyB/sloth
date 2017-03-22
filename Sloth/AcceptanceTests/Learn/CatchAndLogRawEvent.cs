@@ -16,11 +16,11 @@ namespace Sloth.AcceptanceTests.Learn
                     AsA = "Developer",
                     IWant = "To catch a raw user event",
                     SoThat = "I can log it")]
-    public class CatchAndLogRawEvent
+    public class CatchAndLogRawEvent : IDisposable
     {
         private string logFileName = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + Path.DirectorySeparatorChar + "Sloth" + Path.DirectorySeparatorChar + "TestUserEvent.sloth";
         private const string eventLine = ";;0";
-        private ILogger m_Logger;
+        private ILogger logger;
         private ISlothEvent slothEvent;
         private MessageOnlyWindow windows;
         private WinUtilities winUtilities;
@@ -28,8 +28,8 @@ namespace Sloth.AcceptanceTests.Learn
         [TestInitialize]
         public void TestInitialize()
         {
-            m_Logger = new Logger();
-            m_Logger.GetType().GetField("m_FilePath", BindingFlags.NonPublic | BindingFlags.Instance).SetValue(m_Logger, logFileName);
+            logger = new Logger();
+            logger.GetType().GetField("m_FilePath", BindingFlags.NonPublic | BindingFlags.Instance).SetValue(logger, logFileName);
 
             File.Delete(logFileName);
         }
@@ -37,8 +37,11 @@ namespace Sloth.AcceptanceTests.Learn
         [TestCleanup]
         public void TestCleanup()
         {
-            m_Logger.GetType().GetField("m_FilePath", BindingFlags.NonPublic | BindingFlags.Instance).SetValue(m_Logger, null);
-            m_Logger = null;
+            logger.GetType().GetField("m_FilePath", BindingFlags.NonPublic | BindingFlags.Instance).SetValue(logger, null);
+            logger = null;
+            slothEvent = null;
+            windows = null;
+            winUtilities = null;
         }
 
         public void GivenWindows(string buttonName)
@@ -49,7 +52,7 @@ namespace Sloth.AcceptanceTests.Learn
         public void GivenEventListenerService()
         {
             winUtilities = new WinUtilities();
-            IEventListener eventListener = new EventListener(new ApplicationAdapter(), new ControlAdapter(), m_Logger, winUtilities);
+            IEventListener eventListener = new EventListener(new ApplicationAdapter(), new ControlAdapter(), logger, winUtilities);
             eventListener.Start();
         }
 
@@ -80,6 +83,10 @@ namespace Sloth.AcceptanceTests.Learn
                 .BDDfy();
         }
 
+        public void Dispose()
+        {
+            windows.Dispose();
+        }
     }
 
 }

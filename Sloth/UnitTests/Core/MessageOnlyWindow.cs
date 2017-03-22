@@ -8,8 +8,7 @@ namespace Sloth.UnitTests.Core
     {
         public bool NullEventReceived { get; set; }
 
-        [DllImport("user32.dll")]
-        static extern IntPtr SetParent(IntPtr hWndChild, IntPtr hWndNewParent);
+
 
         public MessageOnlyWindow()
         {
@@ -26,7 +25,7 @@ namespace Sloth.UnitTests.Core
         private void ChangeToMessageOnlyWindow()
         {
             IntPtr HWND_MESSAGE = new IntPtr(-3);
-            SetParent(this.Handle, HWND_MESSAGE);
+            NativeMethods.SetParent(this.Handle, HWND_MESSAGE);
         }
 
         // Override
@@ -37,6 +36,12 @@ namespace Sloth.UnitTests.Core
                 NullEventReceived = true;
             }
             base.WndProc(ref m);
+        }
+
+        internal static class NativeMethods
+        {
+            [DllImport("user32.dll")]
+            internal static extern IntPtr SetParent(IntPtr hWndChild, IntPtr hWndNewParent);
         }
     }
 }

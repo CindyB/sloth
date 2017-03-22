@@ -17,31 +17,32 @@ namespace Sloth.AcceptanceTests.Automation
                     AsA = "Developer",
                     IWant = "To read a user event",
                     SoThat = "Raise it")]
-    public class ReadAndRaiseFormattedEvent
+    public class ReadAndRaiseFormattedEvent : IDisposable
     {
-        private string m_logFileName = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + Path.DirectorySeparatorChar + "Sloth" + Path.DirectorySeparatorChar + "TestUserEvent.sloth";
-        private ILogger m_Logger;
+        private string logFileName = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + Path.DirectorySeparatorChar + "Sloth" + Path.DirectorySeparatorChar + "TestUserEvent.sloth";
+        private ILogger logger;
         private MessageOnlyWindow windows;
 
         [TestInitialize]
         public void TestInitialize()
         {
-            m_Logger = new Logger();
-            m_Logger.GetType().GetField("m_FilePath", BindingFlags.NonPublic | BindingFlags.Instance).SetValue(m_Logger, m_logFileName);
+            logger = new Logger();
+            logger.GetType().GetField("m_FilePath", BindingFlags.NonPublic | BindingFlags.Instance).SetValue(logger, logFileName);
 
-            File.Delete(m_logFileName);
+            File.Delete(logFileName);
         }
 
         [TestCleanup]
         public void TestCleanup()
         {
-            m_Logger.GetType().GetField("m_FilePath", BindingFlags.NonPublic | BindingFlags.Instance).SetValue(m_Logger, null);
-            m_Logger = null;
+            logger.GetType().GetField("m_FilePath", BindingFlags.NonPublic | BindingFlags.Instance).SetValue(logger, null);
+            logger = null;
+            windows = null;
         }
 
         public void GivenUserEventLogFileWithUserEvent(string eventLine)
         {
-            m_Logger.Log(eventLine);
+            logger.Log(eventLine);
         }
 
         public void GivenWindows(string windowsName)
@@ -53,7 +54,7 @@ namespace Sloth.AcceptanceTests.Automation
         public void WhenReadAndRaiseFirstEvent()
         {
             IAutomaton auto = new Automaton();
-            auto.RepeatBehavior(m_logFileName);
+            auto.RepeatBehavior(logFileName);
         }
 
         public void ThenFirstEventReadIsRaised()
@@ -61,6 +62,11 @@ namespace Sloth.AcceptanceTests.Automation
             SpinWait.SpinUntil(() => windows.NullEventReceived, 30000);
             Assert.IsTrue(windows.NullEventReceived);
         }
+
+        public void Dispose()
+        {
+        }
+
 
         [TestMethod]
         public void ReadEventRaised()

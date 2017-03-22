@@ -15,7 +15,7 @@ namespace Sloth.Core
         public IntPtr FindControlHandle(IntPtr windowsHandle, string controlName)
         {
             m_ChildHandles = new List<IntPtr>();
-            NativeMethods.EnumChildWindows(windowsHandle, EnumChildProc, 0);
+            NativeMethods.EnumChildWindows(windowsHandle, EnumChildProc, IntPtr.Zero);
             foreach (IntPtr childHandle in m_ChildHandles) if (Control.FromHandle(childHandle)?.Name == controlName) return childHandle;
             return IntPtr.Zero;
         }
@@ -49,15 +49,15 @@ namespace Sloth.Core
         internal static class NativeMethods
         {
             [DllImport("user32.dll")]
-            internal static extern int EnumChildWindows(IntPtr hwnd, EnumChildCallback Proc, int lParam);
+            internal static extern int EnumChildWindows(IntPtr hwnd, EnumChildCallback Proc, IntPtr lParam);
 
-            [DllImport("user32.dll", SetLastError = true)]
+            [DllImport("user32.dll", CharSet = CharSet.Unicode, SetLastError = true)]
             internal static extern IntPtr FindWindow(string lpClassName, string lpWindowName);
 
             [DllImport("user32.dll")]
             internal static extern IntPtr GetDlgItem(IntPtr hDlg, int nIDDlgItem);
 
-            [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+            [DllImport("user32.dll", CharSet = CharSet.Unicode, SetLastError = true)]
             internal static extern int GetWindowText(IntPtr hWnd, StringBuilder lpString, int nMaxCount);
 
             [DllImport("user32.dll")]
