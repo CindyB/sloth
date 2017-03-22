@@ -1,7 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Rhino.Mocks;
 using Sloth.Core;
-using Sloth.Interfaces.Core;
 using System;
 using System.Threading;
 using System.Windows.Forms;

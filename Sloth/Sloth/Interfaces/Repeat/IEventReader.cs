@@ -1,7 +1,7 @@
-﻿using Sloth.Interfaces.Core;
+﻿using Sloth.Core;
 using System.Collections.Generic;
 
-namespace Sloth.Interfaces.Repeat
+namespace Sloth.Repeat
 {
 
     public interface IEventReader

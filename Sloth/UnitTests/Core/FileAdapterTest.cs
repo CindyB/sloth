@@ -1,6 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Sloth.Core;
-using Sloth.Interfaces.Core;
 using System.IO;
 
 namespace Sloth.UnitTests.Core

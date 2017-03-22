@@ -1,6 +1,6 @@
-﻿using Sloth.Interfaces.Core;
+﻿using Sloth.Core;
 
-namespace Sloth.Interfaces.Repeat
+namespace Sloth.Repeat
 {
 
     public interface IEventRaiser

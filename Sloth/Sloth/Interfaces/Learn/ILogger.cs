@@ -1,4 +1,4 @@
-﻿namespace Sloth.Interfaces.Learn
+﻿namespace Sloth.Learn
 {
 
     public interface ILogger

@@ -1,4 +1,4 @@
-﻿using Sloth.Interfaces.Core;
+﻿using Sloth.Core;
 using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;

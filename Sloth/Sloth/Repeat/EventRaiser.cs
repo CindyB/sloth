@@ -1,6 +1,4 @@
 ﻿using Sloth.Core;
-using Sloth.Interfaces.Core;
-using Sloth.Interfaces.Repeat;
 using System;
 
 namespace Sloth.Repeat

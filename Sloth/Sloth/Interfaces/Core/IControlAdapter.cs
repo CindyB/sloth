@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 
-namespace Sloth.Interfaces.Core
+namespace Sloth.Core
 {
 
     public interface IControlAdapter

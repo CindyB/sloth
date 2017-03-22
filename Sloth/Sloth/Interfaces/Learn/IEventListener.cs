@@ -1,6 +1,6 @@
 ﻿using System.Windows.Forms;
 
-namespace Sloth.Interfaces.Learn
+namespace Sloth.Learn
 {
 
     public interface IEventListener

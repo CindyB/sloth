@@ -1,5 +1,5 @@
-﻿using Sloth.Interfaces.Core;
-using Sloth.Interfaces.Learn;
+﻿using Sloth.Core;
+using Sloth.Learn;
 using System;
 using System.Windows.Forms;
 

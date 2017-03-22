@@ -1,4 +1,4 @@
-﻿namespace Sloth.Interfaces.Core
+﻿namespace Sloth.Core
 { 
 
     public interface ISlothEvent

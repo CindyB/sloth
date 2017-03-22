@@ -1,14 +1,12 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Sloth.Core;
-using Sloth.Interfaces.Learn;
 using Sloth.Learn;
+using Sloth.UnitTests.Core;
 using System;
 using System.IO;
-using Sloth.UnitTests.Core;
-using TestStack.BDDfy;
-using System.Threading;
-using Sloth.Interfaces.Core;
 using System.Reflection;
+using System.Threading;
+using TestStack.BDDfy;
 
 namespace Sloth.AcceptanceTests.Learn
 {

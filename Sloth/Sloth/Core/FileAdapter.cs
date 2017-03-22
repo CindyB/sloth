@@ -1,4 +1,4 @@
-﻿using Sloth.Interfaces.Core;
+﻿using Sloth.Core;
 using System.IO;
 
 namespace Sloth.Core

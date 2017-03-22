@@ -1,6 +1,4 @@
 ﻿using Sloth.Core;
-using Sloth.Interfaces.Core;
-using Sloth.Interfaces.Learn;
 using System;
 using System.IO;
 

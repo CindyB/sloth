@@ -1,6 +1,4 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Sloth.Interfaces.Learn;
-using Sloth.Interfaces.Repeat;
 using Sloth.Learn;
 using Sloth.Repeat;
 using Sloth.UnitTests.Core;
