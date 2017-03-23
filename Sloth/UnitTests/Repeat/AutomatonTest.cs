@@ -72,7 +72,7 @@ namespace Sloth.UnitTests.Repeat
 
             m_Target.RepeatBehavior(filePath);
 
-            m_EventRaiser.AssertWasNotCalled(x => x.RaiseSlothEvent(Arg<ISlothEvent>.Is.Anything));
+            m_EventRaiser.AssertWasNotCalled(x => x.PublishSlothEvent(Arg<ISlothEvent>.Is.Anything));
         }
 
         [TestMethod()]
@@ -84,7 +84,7 @@ namespace Sloth.UnitTests.Repeat
 
             m_Target.RepeatBehavior(filePath);
 
-            m_EventRaiser.AssertWasCalled(x => x.RaiseSlothEvent(eventSloth[0]));
+            m_EventRaiser.AssertWasCalled(x => x.PublishSlothEvent(eventSloth[0]));
         }
 
         [TestMethod()]
@@ -96,8 +96,8 @@ namespace Sloth.UnitTests.Repeat
 
             m_Target.RepeatBehavior(filePath);
 
-            m_EventRaiser.AssertWasCalled(x => x.RaiseSlothEvent(eventSloth[0]));
-            m_EventRaiser.AssertWasCalled(x => x.RaiseSlothEvent(eventSloth[1]));
+            m_EventRaiser.AssertWasCalled(x => x.PublishSlothEvent(eventSloth[0]));
+            m_EventRaiser.AssertWasCalled(x => x.PublishSlothEvent(eventSloth[1]));
         }
 
     }

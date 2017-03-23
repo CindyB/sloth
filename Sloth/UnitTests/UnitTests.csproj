@@ -25,7 +25,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet>UnitTests.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -34,6 +34,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>UnitTests.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Rhino.Mocks">
@@ -60,6 +61,7 @@
     </Compile>
     <Compile Include="Core\WinUtilitiesTest.cs" />
     <Compile Include="Core\ControlAdapterTest.cs" />
+    <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Repeat\EventConverterTest.cs" />
     <Compile Include="Repeat\AutomatonTest.cs" />
     <Compile Include="Repeat\EventRaiserTest.cs" />
@@ -75,6 +77,9 @@
       <Project>{8fc39ade-93ff-434b-8ff7-eb62ab7a043a}</Project>
       <Name>Sloth</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="UnitTests.ruleset" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

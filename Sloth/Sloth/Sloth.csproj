@@ -44,6 +44,7 @@
   <ItemGroup>
     <Compile Include="Core\ControlAdapter.cs" />
     <Compile Include="Core\SlothEvent.cs" />
+    <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Interfaces\Core\IControlAdapter.cs" />
     <Compile Include="Interfaces\Core\IWinUtilities.cs" />
     <Compile Include="Interfaces\Core\WindowsMessages.cs" />

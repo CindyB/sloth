@@ -12,7 +12,7 @@ namespace Sloth.Repeat
             m_WinUtilities = new WinUtilities();
         }
 
-        public void RaiseSlothEvent(ISlothEvent eventToRaise)
+        public void PublishSlothEvent(ISlothEvent eventToRaise)
         {
             if (eventToRaise == null) throw new ArgumentNullException("eventToRaise");
             IntPtr windowsHandle = m_WinUtilities.FindWindowsHandle(null,eventToRaise.WindowsName);

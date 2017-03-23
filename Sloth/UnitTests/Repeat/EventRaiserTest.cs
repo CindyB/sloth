@@ -34,7 +34,7 @@ namespace Sloth.UnitTests.Repeat
         [TestMethod(),ExpectedException(typeof(ArgumentNullException))]
         public void GivenNoSlothEvent_WhenRaiseSlothEvent_ThenArgumentNullExceptionIsThrown()
         {
-            m_Target.RaiseSlothEvent(null);
+            m_Target.PublishSlothEvent(null);
         }
 
         [TestMethod()]
@@ -45,7 +45,7 @@ namespace Sloth.UnitTests.Repeat
             ISlothEvent slothEvent = MockRepository.GenerateMock<ISlothEvent>();
             slothEvent.Expect(x => x.WindowsName).Return(windowsName);
 
-            m_Target.RaiseSlothEvent(slothEvent);
+            m_Target.PublishSlothEvent(slothEvent);
 
             m_WinUtilities.AssertWasCalled(x => x.FindWindowsHandle(className,windowsName));
         }
@@ -59,7 +59,7 @@ namespace Sloth.UnitTests.Repeat
             IntPtr windowsHandle = new IntPtr(666);
             m_WinUtilities.Expect(x => x.FindWindowsHandle(null,slothEvent.WindowsName)).Return(windowsHandle);
 
-            m_Target.RaiseSlothEvent(slothEvent);
+            m_Target.PublishSlothEvent(slothEvent);
 
             m_WinUtilities.AssertWasCalled(x => x.FindControlHandle(windowsHandle, controlName));
         }
@@ -73,7 +73,7 @@ namespace Sloth.UnitTests.Repeat
             IntPtr controlHandle = new IntPtr(777);
             m_WinUtilities.Expect(x => x.FindControlHandle(windowsHandle, slothEvent.ControlName)).Return(controlHandle);
 
-            m_Target.RaiseSlothEvent(slothEvent);
+            m_Target.PublishSlothEvent(slothEvent);
 
             m_WinUtilities.AssertWasCalled(x => x.SendMessage(windowsHandle, controlHandle,slothEvent));
         }

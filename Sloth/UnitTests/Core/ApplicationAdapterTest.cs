@@ -27,7 +27,7 @@ namespace Sloth.UnitTests.Core
         {
             FormCollection expected = Application.OpenForms;
 
-            FormCollection actual = m_Target.GetAllOpenForms();
+            FormCollection actual = m_Target.AllOpenForms();
 
             Assert.AreSame(expected, actual);
         }

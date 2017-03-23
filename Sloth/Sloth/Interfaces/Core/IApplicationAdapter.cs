@@ -7,7 +7,7 @@ namespace Sloth.Core
     public interface IApplicationAdapter
     {
 
-        FormCollection GetAllOpenForms();
+        FormCollection AllOpenForms();
 
     }
 

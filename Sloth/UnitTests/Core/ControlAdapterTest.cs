@@ -25,12 +25,17 @@ namespace Sloth.UnitTests.Core
         [TestMethod()]
         public void GivenControlHandle_WhenFromHandle_ThenControlIsReturned()
         {
-            Control expected = new Control();
+            Control expected = new Control(); ;
+            try
+            {
+                Control actual = m_Target.FromHandle(expected.Handle);
 
-            Control actual = m_Target.FromHandle(expected.Handle);
-
-            Assert.AreSame(expected, actual);
-            expected.Dispose();
+                Assert.AreSame(expected, actual);
+            }
+            finally
+            {
+                expected.Dispose();
+            }
         }
 
     }

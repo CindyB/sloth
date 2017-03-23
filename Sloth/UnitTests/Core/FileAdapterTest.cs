@@ -28,7 +28,7 @@ namespace Sloth.UnitTests.Core
             {
                 File.Delete(STR_FilePath);
             }
-            catch (Exception e)
+            catch (IOException e)
             {
                 Console.WriteLine(e.Message);
             }

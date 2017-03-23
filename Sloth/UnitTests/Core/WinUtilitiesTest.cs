@@ -2,6 +2,8 @@
 using Rhino.Mocks;
 using Sloth.Core;
 using System;
+using System.Reflection;
+using System.Resources;
 using System.Threading;
 using System.Windows.Forms;
 
@@ -10,8 +12,8 @@ namespace Sloth.UnitTests.Core
     [TestClass()]
     public class WinUtilitiesTest : IDisposable
     {
-        private const string WindowsName = "Test";
         private Form form;
+        private MessageOnlyWindow windows;
         private IWinUtilities m_Target;
 
         [TestInitialize]
@@ -58,7 +60,7 @@ namespace Sloth.UnitTests.Core
         public void GivenClassNameAndWindowsName_WhenFindWindowsHandle_ThenWindowsHandleIsFound()
         {
             form = new Form();
-            form.Text = WindowsName;
+            form.Text = "MyForm1";
             
             string className = null;
             string windowsName = form.Text;
@@ -74,7 +76,7 @@ namespace Sloth.UnitTests.Core
         public void GivenWindowsHandle_WhenGetWindowText_ThenWindowsTextIsFound()
         {
             form = new Form();
-            form.Text = WindowsName;
+            form.Text = "MyForm";
             IntPtr windowsHandle = form.Handle;
             string expected = form.Text;
 
@@ -87,18 +89,19 @@ namespace Sloth.UnitTests.Core
         [TestMethod()]
         public void GivenWindowsAndControlHandleWithNoSlothEvent_WhenSendMessage_ThenNoMessageIsSent()
         {
-            MessageOnlyWindow windows = new MessageOnlyWindow();
+            windows = new MessageOnlyWindow();
             IntPtr windowsHandle = windows.Handle;
             IntPtr controlHandle = windows.Handle;
             ISlothEvent slothEvent = null;
-
+            
             m_Target.SendMessage(windowsHandle, controlHandle, slothEvent);
+
         }
 
         [TestMethod()]
         public void GivenWindowsAndControlHandleWithSlothEvent_WhenSendMessage_ThenControlReceiveMessage()
         {
-            MessageOnlyWindow windows = new MessageOnlyWindow();
+            windows = new MessageOnlyWindow();
             IntPtr windowsHandle = windows.Handle;
             IntPtr controlHandle = windows.Handle;
             ISlothEvent slothEvent = MockRepository.GenerateMock<ISlothEvent>();
@@ -121,7 +124,8 @@ namespace Sloth.UnitTests.Core
             {
                 if (disposing)
                 {
-                    // TODO: supprimer l'état managé (objets managés).
+                    form.Dispose();
+                    windows.Dispose();
                 }
 
                 // TODO: libérer les ressources non managées (objets non managés) et remplacer un finaliseur ci-dessous.
@@ -142,8 +146,7 @@ namespace Sloth.UnitTests.Core
         {
             // Ne modifiez pas ce code. Placez le code de nettoyage dans Dispose(bool disposing) ci-dessus.
             Dispose(true);
-            // TODO: supprimer les marques de commentaire pour la ligne suivante si le finaliseur est remplacé ci-dessus.
-            // GC.SuppressFinalize(this);
+            GC.SuppressFinalize(this);
         }
         #endregion
     }

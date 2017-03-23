@@ -29,7 +29,7 @@ namespace Sloth.Repeat
 
             foreach (ISlothEvent eventToRaise in eventsToRaise)
             {
-                m_EventRaiser.RaiseSlothEvent(eventToRaise);
+                m_EventRaiser.PublishSlothEvent(eventToRaise);
             }
 
         }
