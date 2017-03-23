@@ -43,7 +43,7 @@ namespace Sloth.UnitTests.Repeat
             int numberOfEvent = 1;
             string windowsName = "MyWindows";
             string controlName = "MyButton";
-            uint message = (uint)WM.LBUTTONDOWN;
+            uint message = (uint)WM.LButtonDown;
 
             string line = windowsName + CHR_LineSeparator + controlName + CHR_LineSeparator + message.ToString();
             ISlothEvent expected = MockRepository.GenerateMock<ISlothEvent>();
