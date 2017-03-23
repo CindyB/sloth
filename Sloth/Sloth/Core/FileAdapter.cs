@@ -1,4 +1,5 @@
 ﻿using Sloth.Core;
+using System;
 using System.IO;
 
 namespace Sloth.Core
@@ -15,9 +16,10 @@ namespace Sloth.Core
                     writer.WriteLine(line);
                 }
             }
-            catch
+            catch (IOException e)
             {
                 // Do nothing because we don't want to compromise application for logging
+                Console.WriteLine(e.ToString());
             }
         }
 

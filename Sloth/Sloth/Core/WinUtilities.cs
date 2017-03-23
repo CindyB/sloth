@@ -34,6 +34,7 @@ namespace Sloth.Core
 
         public void SendMessage(IntPtr windowsHandle, IntPtr controlHandle, ISlothEvent slothEvent)
         {
+            if (slothEvent == null) return;
             NativeMethods.SendMessage(controlHandle, slothEvent.Message,IntPtr.Zero,IntPtr.Zero);
         }
 

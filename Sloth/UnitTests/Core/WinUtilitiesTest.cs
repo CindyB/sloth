@@ -80,7 +80,18 @@ namespace Sloth.UnitTests.Core
             Assert.AreEqual(expected, actual);
             form.Dispose();
         }
-        
+
+        [TestMethod()]
+        public void GivenWindowsAndControlHandleWithNoSlothEvent_WhenSendMessage_ThenNoMessageIsSent()
+        {
+            MessageOnlyWindow windows = new MessageOnlyWindow();
+            IntPtr windowsHandle = windows.Handle;
+            IntPtr controlHandle = windows.Handle;
+            ISlothEvent slothEvent = null;
+
+            m_Target.SendMessage(windowsHandle, controlHandle, slothEvent);
+        }
+
         [TestMethod()]
         public void GivenWindowsAndControlHandleWithSlothEvent_WhenSendMessage_ThenControlReceiveMessage()
         {
