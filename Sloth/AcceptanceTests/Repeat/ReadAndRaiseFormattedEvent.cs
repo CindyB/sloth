@@ -61,11 +61,6 @@ namespace Sloth.AcceptanceTests.Automation
             Assert.IsTrue(windows.NullEventReceived);
         }
 
-        public void Dispose()
-        {
-        }
-
-
         [TestMethod]
         public void ReadEventRaised()
         {
@@ -75,6 +70,40 @@ namespace Sloth.AcceptanceTests.Automation
                 .Then(x => x.ThenFirstEventReadIsRaised(), "Then first user event read in file is raised")
                 .BDDfy();
         }
+
+        #region IDisposable Support
+        private bool disposedValue = false; // Pour détecter les appels redondants
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!disposedValue)
+            {
+                if (disposing)
+                {
+                    windows.Dispose();
+                }
+
+                // TODO: libérer les ressources non managées (objets non managés) et remplacer un finaliseur ci-dessous.
+                // TODO: définir les champs de grande taille avec la valeur Null.
+
+                disposedValue = true;
+            }
+        }
+
+        // TODO: remplacer un finaliseur seulement si la fonction Dispose(bool disposing) ci-dessus a du code pour libérer les ressources non managées.
+        // ~ReadAndRaiseFormattedEvent() {
+        //   // Ne modifiez pas ce code. Placez le code de nettoyage dans Dispose(bool disposing) ci-dessus.
+        //   Dispose(false);
+        // }
+
+        // Ce code est ajouté pour implémenter correctement le modèle supprimable.
+        public void Dispose()
+        {
+            // Ne modifiez pas ce code. Placez le code de nettoyage dans Dispose(bool disposing) ci-dessus.
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+        #endregion
 
     }
 

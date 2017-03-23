@@ -8,8 +8,10 @@ using System.Windows.Forms;
 namespace Sloth.UnitTests.Core
 {
     [TestClass()]
-    public class WinUtilitiesTest
+    public class WinUtilitiesTest : IDisposable
     {
+        private const string WindowsName = "Test";
+        private Form form;
         private IWinUtilities m_Target;
 
         [TestInitialize]
@@ -21,13 +23,14 @@ namespace Sloth.UnitTests.Core
         [TestCleanup]
         public void TestCleanup()
         {
+            form.Dispose();
             m_Target = null;
         }
 
         [TestMethod()]
         public void GivenWindowsHandleAndControlName_WhenFindControlHandle_ThenControlHandleIsFound()
         {
-            Form form = new Form();
+            form = new Form();
             Button button = new Button();
             form.Controls.Add(button);
 
@@ -54,8 +57,8 @@ namespace Sloth.UnitTests.Core
         [TestMethod()]
         public void GivenClassNameAndWindowsName_WhenFindWindowsHandle_ThenWindowsHandleIsFound()
         {
-            Form form = new Form();
-            form.Text = "Test";
+            form = new Form();
+            form.Text = WindowsName;
             
             string className = null;
             string windowsName = form.Text;
@@ -70,8 +73,8 @@ namespace Sloth.UnitTests.Core
         [TestMethod()]
         public void GivenWindowsHandle_WhenGetWindowText_ThenWindowsTextIsFound()
         {
-            Form form = new Form();
-            form.Text = "Test";
+            form = new Form();
+            form.Text = WindowsName;
             IntPtr windowsHandle = form.Handle;
             string expected = form.Text;
 
@@ -108,6 +111,41 @@ namespace Sloth.UnitTests.Core
             SpinWait.SpinUntil(() => windows.NullEventReceived, 30000);
             Assert.IsTrue(windows.NullEventReceived);
         }
+
+        #region IDisposable Support
+        private bool disposedValue = false; // Pour détecter les appels redondants
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!disposedValue)
+            {
+                if (disposing)
+                {
+                    // TODO: supprimer l'état managé (objets managés).
+                }
+
+                // TODO: libérer les ressources non managées (objets non managés) et remplacer un finaliseur ci-dessous.
+                // TODO: définir les champs de grande taille avec la valeur Null.
+
+                disposedValue = true;
+            }
+        }
+
+        // TODO: remplacer un finaliseur seulement si la fonction Dispose(bool disposing) ci-dessus a du code pour libérer les ressources non managées.
+        // ~WinUtilitiesTest() {
+        //   // Ne modifiez pas ce code. Placez le code de nettoyage dans Dispose(bool disposing) ci-dessus.
+        //   Dispose(false);
+        // }
+
+        // Ce code est ajouté pour implémenter correctement le modèle supprimable.
+        public void Dispose()
+        {
+            // Ne modifiez pas ce code. Placez le code de nettoyage dans Dispose(bool disposing) ci-dessus.
+            Dispose(true);
+            // TODO: supprimer les marques de commentaire pour la ligne suivante si le finaliseur est remplacé ci-dessus.
+            // GC.SuppressFinalize(this);
+        }
+        #endregion
     }
 
 }

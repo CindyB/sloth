@@ -30,6 +30,7 @@ namespace Sloth.UnitTests.Core
             Control actual = m_Target.FromHandle(expected.Handle);
 
             Assert.AreSame(expected, actual);
+            expected.Dispose();
         }
 
     }

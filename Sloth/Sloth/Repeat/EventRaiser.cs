@@ -14,6 +14,7 @@ namespace Sloth.Repeat
 
         public void RaiseSlothEvent(ISlothEvent eventToRaise)
         {
+            if (eventToRaise == null) throw new ArgumentNullException("eventToRaise");
             IntPtr windowsHandle = m_WinUtilities.FindWindowsHandle(null,eventToRaise.WindowsName);
 
             IntPtr controlHandle  = m_WinUtilities.FindControlHandle(windowsHandle, eventToRaise.ControlName);

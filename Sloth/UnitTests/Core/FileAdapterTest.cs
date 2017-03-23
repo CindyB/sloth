@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Sloth.Core;
+using System;
 using System.IO;
 
 namespace Sloth.UnitTests.Core
@@ -27,9 +28,9 @@ namespace Sloth.UnitTests.Core
             {
                 File.Delete(STR_FilePath);
             }
-            catch
+            catch (Exception e)
             {
-
+                Console.WriteLine(e.Message);
             }
 
             m_Target = null;

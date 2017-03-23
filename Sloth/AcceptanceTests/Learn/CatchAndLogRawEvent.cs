@@ -42,9 +42,10 @@ namespace Sloth.AcceptanceTests.Learn
             winUtilities = null;
         }
 
-        public void GivenWindows(string buttonName)
+        public void GivenWindows(string windowName)
         {
             windows = new MessageOnlyWindow();
+            windows.Name = windowName;
         }
 
         public void GivenEventListenerService()
@@ -64,7 +65,7 @@ namespace Sloth.AcceptanceTests.Learn
             winUtilities.SendMessage(windows.Handle, windows.Handle, slothEvent);
         }
 
-        public void ThenEventIsLogInFile()
+        public void ThenEventIsLogIntoFile()
         {
             SpinWait.SpinUntil(() => windows.NullEventReceived, 30000);
             Assert.AreEqual(eventLine, File.ReadLines(logFileName));
@@ -77,14 +78,43 @@ namespace Sloth.AcceptanceTests.Learn
                 .And(x => x.GivenEventListenerService(), "A event listener service")
                 .And(x => x.GivenSlothEvent(),"And an event")
             .When(x => x.WhenButtonIsClick(), "When button is click")
-                .Then(x => x.ThenEventIsLogInFile(), "Then event is log in file")
+                .Then(x => x.ThenEventIsLogIntoFile(), "Then event is log in file")
                 .BDDfy();
         }
 
+        #region IDisposable Support
+        private bool disposedValue = false; // Pour détecter les appels redondants
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!disposedValue)
+            {
+                if (disposing)
+                {
+                    windows.Dispose();
+                }
+
+                // TODO: libérer les ressources non managées (objets non managés) et remplacer un finaliseur ci-dessous.
+                // TODO: définir les champs de grande taille avec la valeur Null.
+
+                disposedValue = true;
+            }
+        }
+
+        // TODO: remplacer un finaliseur seulement si la fonction Dispose(bool disposing) ci-dessus a du code pour libérer les ressources non managées.
+        // ~CatchAndLogRawEvent() {
+        //   // Ne modifiez pas ce code. Placez le code de nettoyage dans Dispose(bool disposing) ci-dessus.
+        //   Dispose(false);
+        // }
+
+        // Ce code est ajouté pour implémenter correctement le modèle supprimable.
         public void Dispose()
         {
-            windows.Dispose();
+            // Ne modifiez pas ce code. Placez le code de nettoyage dans Dispose(bool disposing) ci-dessus.
+            Dispose(true);
+            GC.SuppressFinalize(this);
         }
+        #endregion
     }
 
 }

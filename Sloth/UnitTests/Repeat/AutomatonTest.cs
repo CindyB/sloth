@@ -50,7 +50,7 @@ namespace Sloth.UnitTests.Repeat
         }
 
         [TestMethod(), ExpectedException(typeof(FileNotFoundException))]
-        public void GivenFilePathDoesntExists_WhenRepeatBehavior_ThenFileNotFoundExceptionIsThrown()
+        public void GivenFilePathDoesNotExists_WhenRepeatBehavior_ThenFileNotFoundExceptionIsThrown()
         { 
             m_Target.RepeatBehavior("Z:\\test.txt");
         }

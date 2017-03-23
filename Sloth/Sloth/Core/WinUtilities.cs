@@ -15,7 +15,7 @@ namespace Sloth.Core
         public IntPtr FindControlHandle(IntPtr windowsHandle, string controlName)
         {
             m_ChildHandles = new List<IntPtr>();
-            NativeMethods.EnumChildWindows(windowsHandle, EnumChildProc, IntPtr.Zero);
+            if (NativeMethods.EnumChildWindows(windowsHandle, EnumChildProc, IntPtr.Zero) == 0) return IntPtr.Zero;
             foreach (IntPtr childHandle in m_ChildHandles) if (Control.FromHandle(childHandle)?.Name == controlName) return childHandle;
             return IntPtr.Zero;
         }
@@ -28,8 +28,7 @@ namespace Sloth.Core
         public string GetWindowText(IntPtr windowsHandle)
         {
             StringBuilder builder = new StringBuilder(256);
-            NativeMethods.GetWindowText(windowsHandle, builder, builder.Capacity);
-            return builder.ToString();
+            return NativeMethods.GetWindowText(windowsHandle, builder, builder.Capacity) != 0 ? builder.ToString() : String.Empty;
         }
 
         public void SendMessage(IntPtr windowsHandle, IntPtr controlHandle, ISlothEvent slothEvent)
@@ -39,8 +38,6 @@ namespace Sloth.Core
         }
 
 
-        public delegate bool EnumChildCallback(IntPtr hwnd, ref IntPtr lParam);
-
         public bool EnumChildProc(IntPtr hwndChild, ref IntPtr lParam)
         {
             m_ChildHandles.Add(hwndChild);
@@ -49,14 +46,14 @@ namespace Sloth.Core
 
         internal static class NativeMethods
         {
+
+            public delegate bool EnumChildCallback(IntPtr hwnd, ref IntPtr lParam);
+
             [DllImport("user32.dll")]
             internal static extern int EnumChildWindows(IntPtr hwnd, EnumChildCallback Proc, IntPtr lParam);
 
             [DllImport("user32.dll", CharSet = CharSet.Unicode, SetLastError = true)]
             internal static extern IntPtr FindWindow(string lpClassName, string lpWindowName);
-
-            [DllImport("user32.dll")]
-            internal static extern IntPtr GetDlgItem(IntPtr hDlg, int nIDDlgItem);
 
             [DllImport("user32.dll", CharSet = CharSet.Unicode, SetLastError = true)]
             internal static extern int GetWindowText(IntPtr hWnd, StringBuilder lpString, int nMaxCount);

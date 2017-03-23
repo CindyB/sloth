@@ -12,7 +12,6 @@ namespace Sloth.UnitTests.Core
 
         public MessageOnlyWindow()
         {
-            var accessHandle = this.Handle;
             NullEventReceived = false;
         }
 

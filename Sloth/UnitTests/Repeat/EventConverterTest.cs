@@ -4,6 +4,7 @@ using Sloth.Core;
 using Sloth.Repeat;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 
 namespace Sloth.UnitTests.Repeat
 {
@@ -45,7 +46,7 @@ namespace Sloth.UnitTests.Repeat
             string controlName = "MyButton";
             uint message = (uint)WM.LButtonDown;
 
-            string line = windowsName + CHR_LineSeparator + controlName + CHR_LineSeparator + message.ToString();
+            string line = windowsName + CHR_LineSeparator + controlName + CHR_LineSeparator + message.ToString(CultureInfo.InvariantCulture);
             ISlothEvent expected = MockRepository.GenerateMock<ISlothEvent>();
             expected.Expect(x => x.WindowsName).Return(windowsName);
             expected.Expect(x => x.ControlName).Return(controlName);

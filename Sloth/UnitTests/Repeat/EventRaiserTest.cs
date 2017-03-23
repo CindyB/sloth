@@ -31,6 +31,12 @@ namespace Sloth.UnitTests.Repeat
             m_Target = null;
         }
 
+        [TestMethod(),ExpectedException(typeof(ArgumentNullException))]
+        public void GivenNoSlothEvent_WhenRaiseSlothEvent_ThenArgumentNullExceptionIsThrown()
+        {
+            m_Target.RaiseSlothEvent(null);
+        }
+
         [TestMethod()]
         public void GivenSlothEventWithClassNameAndWindowsName_WhenRaiseSlothEvent_ThenWindowsHandleIsFound()
         {

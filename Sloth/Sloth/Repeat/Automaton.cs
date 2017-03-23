@@ -21,7 +21,7 @@ namespace Sloth.Repeat
         public void RepeatBehavior(string filePath)
         {
             if (filePath == null) throw new ArgumentNullException("filePath");
-            if (string.IsNullOrEmpty(filePath)) throw new ArgumentException("filePath");
+            if (string.IsNullOrEmpty(filePath)) throw new ArgumentException("File path is empty","filePath");
             if (!File.Exists(filePath)) throw new FileNotFoundException(filePath);
 
             IList<ISlothEvent> eventsToRaise = m_EventReader.ReadEvents(filePath);
