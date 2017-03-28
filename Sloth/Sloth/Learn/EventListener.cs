@@ -1,25 +1,35 @@
 ﻿using Sloth.Core;
+using System;
+using System.Threading;
 
 namespace Sloth.Learn
 {
     public class EventListener : IEventListener
     {
-        private IApplicationAdapter m_ApplicationAdapter;
-        private IControlAdapter m_ControlAdapter;
-        private ILogger m_Logger;
-        private IWinUtilities m_WinUtilities;
 
-        public EventListener(IApplicationAdapter applicationAdapter,IControlAdapter controlAdapter, ILogger logger, IWinUtilities winUtilities)
+        private IApplicationAdapter applicationAdapter = null;
+        private HookProc callbackDelegate = null;
+        private IControlAdapter controlAdapter = null;
+        private ILogger logger = null;
+        private IWinUtilities winUtilities = null;
+
+        public EventListener(IApplicationAdapter applicationAdapter, IControlAdapter controlAdapter, ILogger logger, IWinUtilities winUtilities)
         {
-            m_ApplicationAdapter = applicationAdapter;
-            m_ControlAdapter = controlAdapter;
-            m_Logger = logger;
-            m_WinUtilities = winUtilities;
+            this.applicationAdapter = applicationAdapter;
+            this.callbackDelegate = new HookProc(HookCallback);
+            this.controlAdapter = controlAdapter;
+            this.logger = logger;
+            this.winUtilities = winUtilities;
         }
 
         public void Start()
         {
-            //TODO
+            this.winUtilities.SetWindowsHookEx(7, callbackDelegate, IntPtr.Zero, Thread.CurrentThread.ManagedThreadId);
+        }
+
+        private int HookCallback(int code, IntPtr wParam, IntPtr lParam)
+        {
+            return this.winUtilities.CallNextHookEx(IntPtr.Zero, code, wParam, lParam);
         }
 
     }

@@ -44,6 +44,16 @@ namespace Sloth.Core
             return true;
         }
 
+        public int CallNextHookEx(IntPtr hhk, int nCode, IntPtr wParam, IntPtr lParam)
+        {
+            throw new NotImplementedException();
+        }
+
+        public int SetWindowsHookEx(int idHook, HookProc lpfn, IntPtr hInstance, int threadId)
+        {
+            throw new NotImplementedException();
+        }
+
         internal static class NativeMethods
         {
 

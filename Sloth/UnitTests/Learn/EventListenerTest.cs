@@ -2,50 +2,53 @@
 using Rhino.Mocks;
 using Sloth.Core;
 using Sloth.Learn;
+using System;
+using System.Reflection;
+using System.Threading;
 
 namespace Sloth.UnitTests.Learn
 {
     [TestClass()]
     public class EventListenerTest
     {
-        private IApplicationAdapter m_ApplicationAdapter;
-        private IControlAdapter m_ControlAdapter;
-        private ILogger m_Logger;
-        private IWinUtilities m_WinUtilities;
-        private IEventListener m_Target;
+        private IApplicationAdapter applicationAdapter;
+        private HookProc callbackDelegate;
+        private IControlAdapter controlAdapter;
+        private ILogger logger;
+        private IWinUtilities winUtilities;
+        private IEventListener target;
 
         [TestInitialize]
         public void TestInitialize()
         {
-            m_ApplicationAdapter = MockRepository.GenerateMock<IApplicationAdapter>();
-            m_ControlAdapter = MockRepository.GenerateMock<IControlAdapter>();
-            m_Logger = MockRepository.GenerateMock <ILogger>();
-            m_WinUtilities = MockRepository.GenerateMock<IWinUtilities>();
+            applicationAdapter = MockRepository.GenerateMock<IApplicationAdapter>();
+            controlAdapter = MockRepository.GenerateMock<IControlAdapter>();
+            logger = MockRepository.GenerateMock <ILogger>();
+            winUtilities = MockRepository.GenerateMock<IWinUtilities>();
 
-            m_Target = new EventListener(m_ApplicationAdapter,m_ControlAdapter,m_Logger,m_WinUtilities);
+            target = new EventListener(applicationAdapter,controlAdapter,logger,winUtilities);
+
+            callbackDelegate = (HookProc)target.GetType().GetField("callbackDelegate", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(target);
         }
 
         [TestCleanup]
         public void TestCleanup()
         {
-            m_ApplicationAdapter = null;
-            m_ControlAdapter = null;
-            m_Logger = null;
-            m_WinUtilities = null;
+            applicationAdapter = null;
+            controlAdapter = null;
+            logger = null;
+            winUtilities = null;
             
-            m_Target = null;
+            target = null;
         }
 
-        //[TestMethod()]
-        //public void GivenApplicationAdapter_WhenStart_ThenListenerIsAddedAsMessageFilter()
-        //{ 
-        //    IApplicationAdapter adapter = m_ApplicationAdapter;
-
-        //    m_Target.Start();
-
+        [TestMethod()]
+        public void GivenWinUtilities_WhenStart_WindowsIsHook()
+        {
+            target.Start();
             
-        //    adapter.AssertWasCalled(x => x.AddEventListenerAsMessageFilter(m_Target));
-        //}
+            winUtilities.AssertWasCalled(x => x.SetWindowsHookEx(7, callbackDelegate, IntPtr.Zero, Thread.CurrentThread.ManagedThreadId));
+        }
 
         //[TestMethod()]
         //public void GivenMessageWithControlHandle_WhenPreFilterMessage_ThenControlIsGet()
@@ -113,7 +116,6 @@ namespace Sloth.UnitTests.Learn
 
         //    Assert.AreEqual(expected, actual);
         //}
-
     }
 
 }
