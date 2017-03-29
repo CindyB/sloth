@@ -25,7 +25,6 @@ namespace Sloth.UnitTests.Core
         [TestCleanup]
         public void TestCleanup()
         {
-            form.Dispose();
             m_Target = null;
         }
 
@@ -61,7 +60,7 @@ namespace Sloth.UnitTests.Core
         {
             form = new Form();
             form.Text = "MyForm1";
-            
+
             string className = null;
             string windowsName = form.Text;
             IntPtr expected = form.Handle;
@@ -93,7 +92,7 @@ namespace Sloth.UnitTests.Core
             IntPtr windowsHandle = windows.Handle;
             IntPtr controlHandle = windows.Handle;
             ISlothEvent slothEvent = null;
-            
+
             m_Target.SendMessage(windowsHandle, controlHandle, slothEvent);
 
         }
@@ -108,15 +107,15 @@ namespace Sloth.UnitTests.Core
             slothEvent.ControlName = windows.Name;
             slothEvent.WindowsName = windows.Name;
             slothEvent.Message = 0x0;
-            
-            m_Target.SendMessage(windowsHandle,controlHandle,slothEvent);
+
+            m_Target.SendMessage(windowsHandle, controlHandle, slothEvent);
 
             SpinWait.SpinUntil(() => windows.NullEventReceived, 30000);
             Assert.IsTrue(windows.NullEventReceived);
         }
 
         #region IDisposable Support
-        private bool disposedValue = false; // Pour détecter les appels redondants
+        private bool disposedValue = false;
 
         protected virtual void Dispose(bool disposing)
         {
@@ -124,27 +123,15 @@ namespace Sloth.UnitTests.Core
             {
                 if (disposing)
                 {
-                    form.Dispose();
-                    windows.Dispose();
+                    if (form != null) form.Dispose();
+                    if (windows != null) windows.Dispose();
                 }
-
-                // TODO: libérer les ressources non managées (objets non managés) et remplacer un finaliseur ci-dessous.
-                // TODO: définir les champs de grande taille avec la valeur Null.
-
                 disposedValue = true;
             }
         }
 
-        // TODO: remplacer un finaliseur seulement si la fonction Dispose(bool disposing) ci-dessus a du code pour libérer les ressources non managées.
-        // ~WinUtilitiesTest() {
-        //   // Ne modifiez pas ce code. Placez le code de nettoyage dans Dispose(bool disposing) ci-dessus.
-        //   Dispose(false);
-        // }
-
-        // Ce code est ajouté pour implémenter correctement le modèle supprimable.
         public void Dispose()
         {
-            // Ne modifiez pas ce code. Placez le code de nettoyage dans Dispose(bool disposing) ci-dessus.
             Dispose(true);
             GC.SuppressFinalize(this);
         }

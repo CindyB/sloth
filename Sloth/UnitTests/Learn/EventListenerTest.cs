@@ -11,7 +11,6 @@ namespace Sloth.UnitTests.Learn
     [TestClass()]
     public class EventListenerTest
     {
-        private IApplicationAdapter applicationAdapter;
         private HookProc callbackDelegate;
         private IControlAdapter controlAdapter;
         private ILogger logger;
@@ -21,12 +20,11 @@ namespace Sloth.UnitTests.Learn
         [TestInitialize]
         public void TestInitialize()
         {
-            applicationAdapter = MockRepository.GenerateMock<IApplicationAdapter>();
             controlAdapter = MockRepository.GenerateMock<IControlAdapter>();
             logger = MockRepository.GenerateMock <ILogger>();
             winUtilities = MockRepository.GenerateMock<IWinUtilities>();
 
-            target = new EventListener(applicationAdapter,controlAdapter,logger,winUtilities);
+            target = new EventListener(controlAdapter,logger,winUtilities);
 
             callbackDelegate = (HookProc)target.GetType().GetField("callbackDelegate", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(target);
         }
@@ -34,7 +32,6 @@ namespace Sloth.UnitTests.Learn
         [TestCleanup]
         public void TestCleanup()
         {
-            applicationAdapter = null;
             controlAdapter = null;
             logger = null;
             winUtilities = null;

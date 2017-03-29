@@ -46,18 +46,21 @@ namespace Sloth.Core
 
         public int CallNextHookEx(IntPtr hhk, int nCode, IntPtr wParam, IntPtr lParam)
         {
-            throw new NotImplementedException();
+            return CallNextHookEx(hhk, nCode, wParam, lParam);
         }
 
         public int SetWindowsHookEx(int idHook, HookProc lpfn, IntPtr hInstance, int threadId)
         {
-            throw new NotImplementedException();
+            return SetWindowsHookEx(idHook, lpfn, hInstance, threadId);
         }
 
         internal static class NativeMethods
         {
 
             public delegate bool EnumChildCallback(IntPtr hwnd, ref IntPtr lParam);
+
+            [DllImport("user32.dll")]
+            internal static extern IntPtr CallNextHookEx(IntPtr hhk, int nCode, IntPtr wParam, IntPtr lParam);
 
             [DllImport("user32.dll")]
             internal static extern int EnumChildWindows(IntPtr hwnd, EnumChildCallback Proc, IntPtr lParam);
@@ -70,6 +73,9 @@ namespace Sloth.Core
 
             [DllImport("user32.dll")]
             internal static extern IntPtr SendMessage(IntPtr hWnd, UInt32 msg, IntPtr wParam, IntPtr lParam);
+
+            [DllImport("user32.dll")]
+            internal static extern IntPtr SetWindowsHookEx(int idHook, HookProc lpfn, IntPtr hInstance, int threadId);
         }
     }
 

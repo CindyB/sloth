@@ -21,6 +21,11 @@ namespace Sloth.Core
                 // Do nothing because we don't want to compromise application for logging
                 Console.WriteLine(e.ToString());
             }
+            catch (UnauthorizedAccessException e)
+            {
+                // Do nothing because we don't want to compromise application for logging
+                Console.WriteLine(e.ToString());
+            }
         }
 
         public string[] ReadAllLines(string filePath)
