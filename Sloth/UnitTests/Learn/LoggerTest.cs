@@ -13,32 +13,31 @@ namespace Sloth.UnitTests.Learn
     [TestClass()]
     public class LoggerTest
     {
-        private IFileAdapter m_FileAdapter;
-
-        private ILogger m_Target; 
+        private IFileAdapter fileAdapter;
+        private ILogger target; 
 
         [TestInitialize]
         public void TestInitialize()
         {
-            m_FileAdapter = MockRepository.GenerateMock<IFileAdapter>();
+            fileAdapter = MockRepository.GenerateMock<IFileAdapter>();
 
-            m_Target = new Logger();
-            m_Target.GetType().GetField("m_FileAdapter", BindingFlags.NonPublic | BindingFlags.Instance).SetValue(m_Target, m_FileAdapter);
+            target = new Logger();
+            target.GetType().GetField("m_FileAdapter", BindingFlags.NonPublic | BindingFlags.Instance).SetValue(target, fileAdapter);
         }
 
         [TestCleanup]
         public void TestCleanup()
         {
-            m_FileAdapter = null;
+            fileAdapter = null;
 
-            m_Target.GetType().GetField("m_FileAdapter", BindingFlags.NonPublic | BindingFlags.Instance).SetValue(m_Target, null);
-            m_Target = null;
+            target.GetType().GetField("m_FileAdapter", BindingFlags.NonPublic | BindingFlags.Instance).SetValue(target, null);
+            target = null;
         }
 
         [TestMethod(), ExpectedException(typeof(ArgumentNullException))]
         public void GivenLineIsNothing_WhenLog_ThenArgumentNullExceptionIsThrown()
         {
-            m_Target.Log(null);
+            target.Log(null);
         }
 
         [TestMethod()]
@@ -47,9 +46,9 @@ namespace Sloth.UnitTests.Learn
             string filePath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + Path.DirectorySeparatorChar + "Sloth" + Path.DirectorySeparatorChar + "UserEvent.sloth";
             string line = "This is a test";
 
-            m_Target.Log(line);
+            target.Log(line);
 
-            m_FileAdapter.AssertWasCalled(x => x.AppendToFile(filePath, line));
+            fileAdapter.AssertWasCalled(x => x.AppendToFile(filePath, line));
         }
 
     }

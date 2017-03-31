@@ -10,31 +10,31 @@ namespace Sloth.UnitTests.Repeat
     [TestClass()]
     public class EventRaiserTest
     {
-        private IWinUtilities m_WinUtilities;
-        private IEventRaiser m_Target; 
+        private IWinUtilities winUtilities;
+        private IEventRaiser target; 
 
         [TestInitialize]
         public void TestInitialize()
         {
-           m_WinUtilities = MockRepository.GenerateMock<IWinUtilities>();
+           winUtilities = MockRepository.GenerateMock<IWinUtilities>();
 
-            m_Target = new EventRaiser();
-            m_Target.GetType().GetField("m_WinUtilities", BindingFlags.NonPublic | BindingFlags.Instance).SetValue(m_Target, m_WinUtilities);
+            target = new EventRaiser();
+            target.GetType().GetField("m_WinUtilities", BindingFlags.NonPublic | BindingFlags.Instance).SetValue(target, winUtilities);
         }
 
         [TestCleanup]
         public void TestCleanup()
         {
-            m_WinUtilities = null;
+            winUtilities = null;
 
-            m_Target.GetType().GetField("m_WinUtilities", BindingFlags.NonPublic | BindingFlags.Instance).SetValue(m_Target, null);
-            m_Target = null;
+            target.GetType().GetField("m_WinUtilities", BindingFlags.NonPublic | BindingFlags.Instance).SetValue(target, null);
+            target = null;
         }
 
         [TestMethod(),ExpectedException(typeof(ArgumentNullException))]
         public void GivenNoSlothEvent_WhenRaiseSlothEvent_ThenArgumentNullExceptionIsThrown()
         {
-            m_Target.PublishSlothEvent(null);
+            target.PublishSlothEvent(null);
         }
 
         [TestMethod()]
@@ -45,9 +45,9 @@ namespace Sloth.UnitTests.Repeat
             ISlothEvent slothEvent = MockRepository.GenerateMock<ISlothEvent>();
             slothEvent.Expect(x => x.WindowsName).Return(windowsName);
 
-            m_Target.PublishSlothEvent(slothEvent);
+            target.PublishSlothEvent(slothEvent);
 
-            m_WinUtilities.AssertWasCalled(x => x.FindWindowsHandle(className,windowsName));
+            winUtilities.AssertWasCalled(x => x.FindWindowsHandle(className,windowsName));
         }
 
         [TestMethod()]
@@ -57,11 +57,11 @@ namespace Sloth.UnitTests.Repeat
             ISlothEvent slothEvent = MockRepository.GenerateMock<ISlothEvent>();
             slothEvent.Expect(x => x.ControlName).Return(controlName);
             IntPtr windowsHandle = new IntPtr(666);
-            m_WinUtilities.Expect(x => x.FindWindowsHandle(null,slothEvent.WindowsName)).Return(windowsHandle);
+            winUtilities.Expect(x => x.FindWindowsHandle(null,slothEvent.WindowsName)).Return(windowsHandle);
 
-            m_Target.PublishSlothEvent(slothEvent);
+            target.PublishSlothEvent(slothEvent);
 
-            m_WinUtilities.AssertWasCalled(x => x.FindControlHandle(windowsHandle, controlName));
+            winUtilities.AssertWasCalled(x => x.FindControlHandle(windowsHandle, controlName));
         }
 
         [TestMethod()]
@@ -69,13 +69,13 @@ namespace Sloth.UnitTests.Repeat
         {
             ISlothEvent slothEvent = MockRepository.GenerateMock<ISlothEvent>();
             IntPtr windowsHandle = new IntPtr(666);
-            m_WinUtilities.Expect(x => x.FindWindowsHandle(null, slothEvent.WindowsName)).Return(windowsHandle);
+            winUtilities.Expect(x => x.FindWindowsHandle(null, slothEvent.WindowsName)).Return(windowsHandle);
             IntPtr controlHandle = new IntPtr(777);
-            m_WinUtilities.Expect(x => x.FindControlHandle(windowsHandle, slothEvent.ControlName)).Return(controlHandle);
+            winUtilities.Expect(x => x.FindControlHandle(windowsHandle, slothEvent.ControlName)).Return(controlHandle);
 
-            m_Target.PublishSlothEvent(slothEvent);
+            target.PublishSlothEvent(slothEvent);
 
-            m_WinUtilities.AssertWasCalled(x => x.SendMessage(windowsHandle, controlHandle,slothEvent));
+            winUtilities.AssertWasCalled(x => x.SendMessage(windowsHandle, controlHandle,slothEvent));
         }
 
     }

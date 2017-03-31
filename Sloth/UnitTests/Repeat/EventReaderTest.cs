@@ -10,30 +10,30 @@ namespace Sloth.UnitTests.Repeat
     [TestClass()]
     public class EventReaderTest
     {
-        private IEventConverter m_EventConverter;
-        private IFileAdapter m_FileAdapter;
-        private IEventReader m_Target; 
+        private IEventConverter eventConverter;
+        private IFileAdapter fileAdapter;
+        private IEventReader target; 
 
         [TestInitialize]
         public void TestInitialize()
         {
-            m_EventConverter = MockRepository.GenerateMock<IEventConverter>();
-            m_FileAdapter = MockRepository.GenerateMock<IFileAdapter>();
+            eventConverter = MockRepository.GenerateMock<IEventConverter>();
+            fileAdapter = MockRepository.GenerateMock<IFileAdapter>();
 
-            m_Target = new EventReader();
-            m_Target.GetType().GetField("m_EventConverter", BindingFlags.NonPublic | BindingFlags.Instance).SetValue(m_Target, m_EventConverter);
-            m_Target.GetType().GetField("m_FileAdapter", BindingFlags.NonPublic | BindingFlags.Instance).SetValue(m_Target, m_FileAdapter);
+            target = new EventReader();
+            target.GetType().GetField("m_EventConverter", BindingFlags.NonPublic | BindingFlags.Instance).SetValue(target, eventConverter);
+            target.GetType().GetField("m_FileAdapter", BindingFlags.NonPublic | BindingFlags.Instance).SetValue(target, fileAdapter);
         }
 
         [TestCleanup]
         public void TestCleanup()
         {
-            m_EventConverter = null;
-            m_FileAdapter = null;
+            eventConverter = null;
+            fileAdapter = null;
 
-            m_Target.GetType().GetField("m_EventConverter", BindingFlags.NonPublic | BindingFlags.Instance).SetValue(m_Target, null);
-            m_Target.GetType().GetField("m_FileAdapter", BindingFlags.NonPublic | BindingFlags.Instance).SetValue(m_Target, null);
-            m_Target = null;
+            target.GetType().GetField("m_EventConverter", BindingFlags.NonPublic | BindingFlags.Instance).SetValue(target, null);
+            target.GetType().GetField("m_FileAdapter", BindingFlags.NonPublic | BindingFlags.Instance).SetValue(target, null);
+            target = null;
         }
 
         [TestMethod()]
@@ -41,9 +41,9 @@ namespace Sloth.UnitTests.Repeat
         {
             string filePath = this.GetType().Assembly.Location;
 
-            m_Target.ReadEvents(filePath);
+            target.ReadEvents(filePath);
 
-            m_FileAdapter.AssertWasCalled(x => x.ReadAllLines(filePath));
+            fileAdapter.AssertWasCalled(x => x.ReadAllLines(filePath));
         }
 
         [TestMethod()]
@@ -51,11 +51,11 @@ namespace Sloth.UnitTests.Repeat
         { 
             string filePath = this.GetType().Assembly.Location;
             string[] lines = {"MyButton;Click"};
-            m_FileAdapter.Expect(x => x.ReadAllLines(filePath)).Return(lines);
+            fileAdapter.Expect(x => x.ReadAllLines(filePath)).Return(lines);
 
-            m_Target.ReadEvents(filePath);
+            target.ReadEvents(filePath);
 
-            m_EventConverter.AssertWasCalled(x => x.ConvertToSlothEvents(lines));
+            eventConverter.AssertWasCalled(x => x.ConvertToSlothEvents(lines));
         }
 
         [TestMethod()]
@@ -63,11 +63,11 @@ namespace Sloth.UnitTests.Repeat
         { 
             string filePath = this.GetType().Assembly.Location;
             string[] lines = {"MyButton;Click"};
-            m_FileAdapter.Expect(x => x.ReadAllLines(filePath)).Return(lines);
+            fileAdapter.Expect(x => x.ReadAllLines(filePath)).Return(lines);
             IList<ISlothEvent> expected = new List<ISlothEvent>(){ MockRepository.GenerateMock<ISlothEvent>(), MockRepository.GenerateMock<ISlothEvent>()};
-            m_EventConverter.Expect(x => x.ConvertToSlothEvents(lines)).Return(expected);
+            eventConverter.Expect(x => x.ConvertToSlothEvents(lines)).Return(expected);
 
-            IList<ISlothEvent> actual = m_Target.ReadEvents(filePath);
+            IList<ISlothEvent> actual = target.ReadEvents(filePath);
 
             Assert.AreSame(expected, actual);
         }

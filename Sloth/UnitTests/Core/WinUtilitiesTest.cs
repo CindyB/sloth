@@ -2,8 +2,6 @@
 using Rhino.Mocks;
 using Sloth.Core;
 using System;
-using System.Reflection;
-using System.Resources;
 using System.Threading;
 using System.Windows.Forms;
 
@@ -14,18 +12,18 @@ namespace Sloth.UnitTests.Core
     {
         private Form form;
         private MessageOnlyWindow windows;
-        private IWinUtilities m_Target;
+        private IWinUtilities target;
 
         [TestInitialize]
         public void TestInitialize()
         {
-            m_Target = new WinUtilities();
+            target = new WinUtilities();
         }
 
         [TestCleanup]
         public void TestCleanup()
         {
-            m_Target = null;
+            target = null;
         }
 
         [TestMethod()]
@@ -39,7 +37,7 @@ namespace Sloth.UnitTests.Core
             string controlName = button.Name;
             IntPtr expected = button.Handle;
 
-            IntPtr actual = m_Target.FindControlHandle(windowsHandle, controlName);
+            IntPtr actual = target.FindControlHandle(windowsHandle, controlName);
 
             Assert.AreEqual(expected, actual);
             form.Dispose();
@@ -50,7 +48,7 @@ namespace Sloth.UnitTests.Core
         {
             IntPtr expected = IntPtr.Zero;
 
-            IntPtr actual = m_Target.FindControlHandle(IntPtr.Zero, "MyControl");
+            IntPtr actual = target.FindControlHandle(IntPtr.Zero, "MyControl");
 
             Assert.AreEqual(expected, actual);
         }
@@ -65,7 +63,7 @@ namespace Sloth.UnitTests.Core
             string windowsName = form.Text;
             IntPtr expected = form.Handle;
 
-            IntPtr actual = m_Target.FindWindowsHandle(className, windowsName);
+            IntPtr actual = target.FindWindowsHandle(className, windowsName);
 
             Assert.AreEqual(expected, actual);
             form.Dispose();
@@ -79,7 +77,7 @@ namespace Sloth.UnitTests.Core
             IntPtr windowsHandle = form.Handle;
             string expected = form.Text;
 
-            string actual = m_Target.GetWindowText(windowsHandle);
+            string actual = target.GetWindowText(windowsHandle);
 
             Assert.AreEqual(expected, actual);
             form.Dispose();
@@ -93,7 +91,7 @@ namespace Sloth.UnitTests.Core
             IntPtr controlHandle = windows.Handle;
             ISlothEvent slothEvent = null;
 
-            m_Target.SendMessage(windowsHandle, controlHandle, slothEvent);
+            target.SendMessage(windowsHandle, controlHandle, slothEvent);
 
         }
 
@@ -108,7 +106,7 @@ namespace Sloth.UnitTests.Core
             slothEvent.WindowsName = windows.Name;
             slothEvent.Message = 0x0;
 
-            m_Target.SendMessage(windowsHandle, controlHandle, slothEvent);
+            target.SendMessage(windowsHandle, controlHandle, slothEvent);
 
             SpinWait.SpinUntil(() => windows.NullEventReceived, 30000);
             Assert.IsTrue(windows.NullEventReceived);

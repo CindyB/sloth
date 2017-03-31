@@ -11,31 +11,31 @@ namespace Sloth.UnitTests.Repeat
     [TestClass()]
     public class EventConverterTest
     {
-        private const char CHR_LineSeparator = ';';
-        private IEventConverter m_Target; 
+        private const char LineSeparator = ';';
+        private IEventConverter target; 
 
         [TestInitialize]
         public void TestInitialize()
         {
-            m_Target = new EventConverter();
+            target = new EventConverter();
         }
 
         [TestCleanup]
         public void TestCleanup()
         {
-            m_Target = null;
+            target = null;
         }
 
         [TestMethod(), ExpectedException(typeof(ArgumentException))]
         public void GivenLinesAreEmpty_WhenConvertToSlothEvents_ThenArgumentExceptionIsThrown()
         {
-            m_Target.ConvertToSlothEvents(new string[] { });   
+            target.ConvertToSlothEvents(new string[] { });   
         }
 
         [TestMethod(), ExpectedException(typeof(ArgumentNullException))]
         public void GivenLinesAreNull_WhenConvertToSlothEvents_ThenArgumentNullExceptionIsThrown()
         {
-            m_Target.ConvertToSlothEvents(null);
+            target.ConvertToSlothEvents(null);
         }
 
         [TestMethod()]
@@ -46,13 +46,13 @@ namespace Sloth.UnitTests.Repeat
             string controlName = "MyButton";
             uint message = (uint)WM.LButtonDown;
 
-            string line = windowsName + CHR_LineSeparator + controlName + CHR_LineSeparator + message.ToString(CultureInfo.InvariantCulture);
+            string line = windowsName + LineSeparator + controlName + LineSeparator + message.ToString(CultureInfo.InvariantCulture);
             ISlothEvent expected = MockRepository.GenerateMock<ISlothEvent>();
             expected.Expect(x => x.WindowsName).Return(windowsName);
             expected.Expect(x => x.ControlName).Return(controlName);
             expected.Expect(x => x.Message).Return(message);
 
-            IList<ISlothEvent> actual = m_Target.ConvertToSlothEvents(new string[] { line });
+            IList<ISlothEvent> actual = target.ConvertToSlothEvents(new string[] { line });
 
             Assert.AreEqual(numberOfEvent, actual.Count);
             Assert.AreEqual(expected.WindowsName, actual[0].WindowsName);

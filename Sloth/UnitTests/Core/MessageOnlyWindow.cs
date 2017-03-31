@@ -7,9 +7,7 @@ namespace Sloth.UnitTests.Core
     public class MessageOnlyWindow : Form
     {
         public bool NullEventReceived { get; set; }
-
-
-
+        
         public MessageOnlyWindow()
         {
             NullEventReceived = false;

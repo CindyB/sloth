@@ -10,13 +10,13 @@ namespace Sloth.Core
     public class WinUtilities : IWinUtilities
     {
 
-        private List<IntPtr> m_ChildHandles;
+        private List<IntPtr> childHandles;
 
         public IntPtr FindControlHandle(IntPtr windowsHandle, string controlName)
         {
-            m_ChildHandles = new List<IntPtr>();
+            childHandles = new List<IntPtr>();
             if (NativeMethods.EnumChildWindows(windowsHandle, EnumChildProc, IntPtr.Zero) == 0) return IntPtr.Zero;
-            foreach (IntPtr childHandle in m_ChildHandles) if (Control.FromHandle(childHandle)?.Name == controlName) return childHandle;
+            foreach (IntPtr childHandle in childHandles) if (Control.FromHandle(childHandle)?.Name == controlName) return childHandle;
             return IntPtr.Zero;
         }
 
@@ -40,7 +40,7 @@ namespace Sloth.Core
 
         public bool EnumChildProc(IntPtr hwndChild, ref IntPtr lParam)
         {
-            m_ChildHandles.Add(hwndChild);
+            childHandles.Add(hwndChild);
             return true;
         }
 

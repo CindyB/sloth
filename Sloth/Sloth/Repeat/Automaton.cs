@@ -9,13 +9,13 @@ namespace Sloth.Repeat
     public class Automaton : IAutomaton
     {
 
-        private IEventRaiser m_EventRaiser;
-        private IEventReader m_EventReader;
+        private IEventRaiser eventRaiser;
+        private IEventReader eventReader;
 
         public Automaton()
         {
-            m_EventRaiser = new EventRaiser();
-            m_EventReader = new EventReader();
+            eventRaiser = new EventRaiser();
+            eventReader = new EventReader();
         }
 
         public void RepeatBehavior(string filePath)
@@ -24,12 +24,12 @@ namespace Sloth.Repeat
             if (string.IsNullOrEmpty(filePath)) throw new ArgumentException("File path is empty","filePath");
             if (!File.Exists(filePath)) throw new FileNotFoundException(filePath);
 
-            IList<ISlothEvent> eventsToRaise = m_EventReader.ReadEvents(filePath);
+            IList<ISlothEvent> eventsToRaise = eventReader.ReadEvents(filePath);
             if (eventsToRaise == null) return;
 
             foreach (ISlothEvent eventToRaise in eventsToRaise)
             {
-                m_EventRaiser.PublishSlothEvent(eventToRaise);
+                eventRaiser.PublishSlothEvent(eventToRaise);
             }
 
         }

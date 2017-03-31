@@ -8,18 +8,18 @@ namespace Sloth.UnitTests.Core
     public class ControlAdapterTest
     {
 
-        private IControlAdapter m_Target;
+        private IControlAdapter target;
 
         [TestInitialize]
         public void TestInitialize()
         {
-            m_Target = new ControlAdapter();
+            target = new ControlAdapter();
         }
 
         [TestCleanup]
         public void TestCleanup()
         {
-            m_Target = null;
+            target = null;
         }
 
         [TestMethod()]
@@ -28,7 +28,7 @@ namespace Sloth.UnitTests.Core
             Control expected = new Control(); ;
             try
             {
-                Control actual = m_Target.FromHandle(expected.Handle);
+                Control actual = target.FromHandle(expected.Handle);
 
                 Assert.AreSame(expected, actual);
             }

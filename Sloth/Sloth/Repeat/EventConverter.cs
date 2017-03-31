@@ -7,7 +7,7 @@ namespace Sloth.Repeat
 {
     public class EventConverter : IEventConverter
     {
-        private const char CHR_LineSeparator = ';';
+        private const char LineSeparator = ';';
 
         public IList<ISlothEvent> ConvertToSlothEvents(string[] lines)
         {
@@ -18,7 +18,7 @@ namespace Sloth.Repeat
 
             foreach(string line in lines)
             {
-                string[] information = line.Split(CHR_LineSeparator);
+                string[] information = line.Split(LineSeparator);
                 slothEvents.Add(new SlothEvent(information[0], information[1], uint.Parse(information[2],CultureInfo.InvariantCulture)));
             }
 

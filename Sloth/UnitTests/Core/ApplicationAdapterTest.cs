@@ -8,18 +8,18 @@ namespace Sloth.UnitTests.Core
     public class ApplicationAdapterTest
     {
 
-        private IApplicationAdapter m_Target;
+        private IApplicationAdapter target;
 
         [TestInitialize]
         public void TestInitialize()
         {
-            m_Target = new ApplicationAdapter();
+            target = new ApplicationAdapter();
         }
 
         [TestCleanup]
         public void TestCleanup()
         {
-            m_Target = null;
+            target = null;
         }
 
         [TestMethod()]
@@ -27,7 +27,7 @@ namespace Sloth.UnitTests.Core
         {
             FormCollection expected = Application.OpenForms;
 
-            FormCollection actual = m_Target.AllOpenForms();
+            FormCollection actual = target.AllOpenForms();
 
             Assert.AreSame(expected, actual);
         }
