@@ -21,8 +21,8 @@ namespace Sloth.UnitTests.Repeat
             fileAdapter = MockRepository.GenerateMock<IFileAdapter>();
 
             target = new EventReader();
-            target.GetType().GetField("m_EventConverter", BindingFlags.NonPublic | BindingFlags.Instance).SetValue(target, eventConverter);
-            target.GetType().GetField("m_FileAdapter", BindingFlags.NonPublic | BindingFlags.Instance).SetValue(target, fileAdapter);
+            target.GetType().GetField("eventConverter", BindingFlags.NonPublic | BindingFlags.Instance).SetValue(target, eventConverter);
+            target.GetType().GetField("fileAdapter", BindingFlags.NonPublic | BindingFlags.Instance).SetValue(target, fileAdapter);
         }
 
         [TestCleanup]
@@ -31,8 +31,8 @@ namespace Sloth.UnitTests.Repeat
             eventConverter = null;
             fileAdapter = null;
 
-            target.GetType().GetField("m_EventConverter", BindingFlags.NonPublic | BindingFlags.Instance).SetValue(target, null);
-            target.GetType().GetField("m_FileAdapter", BindingFlags.NonPublic | BindingFlags.Instance).SetValue(target, null);
+            target.GetType().GetField("eventConverter", BindingFlags.NonPublic | BindingFlags.Instance).SetValue(target, null);
+            target.GetType().GetField("fileAdapter", BindingFlags.NonPublic | BindingFlags.Instance).SetValue(target, null);
             target = null;
         }
 

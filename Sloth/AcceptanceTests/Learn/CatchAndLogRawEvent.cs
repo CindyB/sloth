@@ -27,7 +27,7 @@ namespace Sloth.AcceptanceTests.Learn
         public void TestInitialize()
         {
             logger = new Logger();
-            logger.GetType().GetField("m_FilePath", BindingFlags.NonPublic | BindingFlags.Instance).SetValue(logger, logFileName);
+            logger.GetType().GetField("filePath", BindingFlags.NonPublic | BindingFlags.Instance).SetValue(logger, logFileName);
 
             File.Delete(logFileName);
         }
@@ -35,7 +35,7 @@ namespace Sloth.AcceptanceTests.Learn
         [TestCleanup]
         public void TestCleanup()
         {
-            logger.GetType().GetField("m_FilePath", BindingFlags.NonPublic | BindingFlags.Instance).SetValue(logger, null);
+            logger.GetType().GetField("filePath", BindingFlags.NonPublic | BindingFlags.Instance).SetValue(logger, null);
             logger = null;
             slothEvent = null;
             windows = null;

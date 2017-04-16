@@ -25,7 +25,7 @@ namespace Sloth.AcceptanceTests.Automation
         public void TestInitialize()
         {
             logger = new Logger();
-            logger.GetType().GetField("m_FilePath", BindingFlags.NonPublic | BindingFlags.Instance).SetValue(logger, logFileName);
+            logger.GetType().GetField("filePath", BindingFlags.NonPublic | BindingFlags.Instance).SetValue(logger, logFileName);
 
             File.Delete(logFileName);
         }
@@ -33,7 +33,7 @@ namespace Sloth.AcceptanceTests.Automation
         [TestCleanup]
         public void TestCleanup()
         {
-            logger.GetType().GetField("m_FilePath", BindingFlags.NonPublic | BindingFlags.Instance).SetValue(logger, null);
+            logger.GetType().GetField("filePath", BindingFlags.NonPublic | BindingFlags.Instance).SetValue(logger, null);
             logger = null;
             windows = null;
         }

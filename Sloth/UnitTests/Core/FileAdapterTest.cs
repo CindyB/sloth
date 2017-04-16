@@ -11,14 +11,14 @@ namespace Sloth.UnitTests.Core
 
         private const string FilePath = "fileAdapterTest.txt";
 
-        private IFileAdapter m_Target;
+        private IFileAdapter target;
 
         [TestInitialize]
         public void TestInitialize()
         { 
             File.WriteAllLines(FilePath, new string[] { "MyButton;Click", "Menu1;Click"});
 
-            m_Target = new FileAdapter();
+            target = new FileAdapter();
         }
 
         [TestCleanup]
@@ -33,13 +33,13 @@ namespace Sloth.UnitTests.Core
                 Console.WriteLine(e.Message);
             }
 
-            m_Target = null;
+            target = null;
         }
 
         [TestMethod()]
         public void GivenLineCannotBeAppend_WhenAppendToFile_ThenNoExceptionIsThrown()
         {
-            m_Target.AppendToFile("Z:\\", "Test");
+            target.AppendToFile("Z:\\", "Test");
         }
 
         [TestMethod()]
@@ -47,7 +47,7 @@ namespace Sloth.UnitTests.Core
         {
             string[] expected = File.ReadAllLines(FilePath);
 
-            string[] actual = m_Target.ReadAllLines(FilePath);
+            string[] actual = target.ReadAllLines(FilePath);
 
             Assert.AreEqual(expected.Length, actual.Length);
             for (int i = 0; i < expected.Length; i++)

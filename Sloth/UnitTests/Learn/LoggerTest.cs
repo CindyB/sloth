@@ -22,7 +22,7 @@ namespace Sloth.UnitTests.Learn
             fileAdapter = MockRepository.GenerateMock<IFileAdapter>();
 
             target = new Logger();
-            target.GetType().GetField("m_FileAdapter", BindingFlags.NonPublic | BindingFlags.Instance).SetValue(target, fileAdapter);
+            target.GetType().GetField("fileAdapter", BindingFlags.NonPublic | BindingFlags.Instance).SetValue(target, fileAdapter);
         }
 
         [TestCleanup]
@@ -30,7 +30,7 @@ namespace Sloth.UnitTests.Learn
         {
             fileAdapter = null;
 
-            target.GetType().GetField("m_FileAdapter", BindingFlags.NonPublic | BindingFlags.Instance).SetValue(target, null);
+            target.GetType().GetField("fileAdapter", BindingFlags.NonPublic | BindingFlags.Instance).SetValue(target, null);
             target = null;
         }
 

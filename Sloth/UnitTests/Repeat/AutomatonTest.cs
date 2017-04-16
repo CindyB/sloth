@@ -22,8 +22,8 @@ namespace Sloth.UnitTests.Repeat
             eventReader = MockRepository.GenerateMock<IEventReader>();
 
             target = new Automaton();
-            target.GetType().GetField("m_EventRaiser", BindingFlags.NonPublic | BindingFlags.Instance).SetValue(target, eventRaiser);
-            target.GetType().GetField("m_EventReader", BindingFlags.NonPublic | BindingFlags.Instance).SetValue(target, eventReader);
+            target.GetType().GetField("eventRaiser", BindingFlags.NonPublic | BindingFlags.Instance).SetValue(target, eventRaiser);
+            target.GetType().GetField("eventReader", BindingFlags.NonPublic | BindingFlags.Instance).SetValue(target, eventReader);
         }
 
         [TestCleanup]
@@ -32,8 +32,8 @@ namespace Sloth.UnitTests.Repeat
             eventRaiser = null;
             eventReader = null;
 
-            target.GetType().GetField("m_EventRaiser", BindingFlags.NonPublic | BindingFlags.Instance).SetValue(target, null);
-            target.GetType().GetField("m_EventReader", BindingFlags.NonPublic | BindingFlags.Instance).SetValue(target, null);
+            target.GetType().GetField("eventRaiser", BindingFlags.NonPublic | BindingFlags.Instance).SetValue(target, null);
+            target.GetType().GetField("eventReader", BindingFlags.NonPublic | BindingFlags.Instance).SetValue(target, null);
             target = null;
         }
 

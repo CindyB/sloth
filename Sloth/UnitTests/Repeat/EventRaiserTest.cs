@@ -19,7 +19,7 @@ namespace Sloth.UnitTests.Repeat
            winUtilities = MockRepository.GenerateMock<IWinUtilities>();
 
             target = new EventRaiser();
-            target.GetType().GetField("m_WinUtilities", BindingFlags.NonPublic | BindingFlags.Instance).SetValue(target, winUtilities);
+            target.GetType().GetField("winUtilities", BindingFlags.NonPublic | BindingFlags.Instance).SetValue(target, winUtilities);
         }
 
         [TestCleanup]
@@ -27,7 +27,7 @@ namespace Sloth.UnitTests.Repeat
         {
             winUtilities = null;
 
-            target.GetType().GetField("m_WinUtilities", BindingFlags.NonPublic | BindingFlags.Instance).SetValue(target, null);
+            target.GetType().GetField("winUtilities", BindingFlags.NonPublic | BindingFlags.Instance).SetValue(target, null);
             target = null;
         }
 
