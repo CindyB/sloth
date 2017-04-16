@@ -92,7 +92,6 @@ namespace Sloth.UnitTests.Core
             ISlothEvent slothEvent = null;
 
             target.SendMessage(windowsHandle, controlHandle, slothEvent);
-
         }
 
         [TestMethod()]

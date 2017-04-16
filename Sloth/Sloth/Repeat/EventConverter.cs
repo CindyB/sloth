@@ -22,7 +22,6 @@ namespace Sloth.Repeat
                 slothEvents.Add(new SlothEvent(information[0], information[1], uint.Parse(information[2],CultureInfo.InvariantCulture)));
             }
 
-
             return slothEvents;
         }
     }

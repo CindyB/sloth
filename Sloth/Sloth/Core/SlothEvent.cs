@@ -4,62 +4,25 @@ namespace Sloth.Core
 {
     public class SlothEvent : ISlothEvent
     {
-        private string controlName;
-        private uint message;
-        private string windowsName;
-
         public SlothEvent()
         {
-            controlName = string.Empty;
-            message = uint.MinValue;
-            windowsName = string.Empty;
+            ControlName = string.Empty;
+            Message = uint.MinValue;
+            WindowsName = string.Empty;
         }
 
         public SlothEvent(string windowsName,string controlName,uint message)
         {
-            this.controlName = controlName;
-            this.message = message;
-            this.windowsName = windowsName;
+            ControlName = controlName;
+            Message = message;
+            WindowsName = windowsName;
         }
 
-        public string ControlName
-        {
-            get
-            {
-                return controlName;
-            }
+        public string ControlName { get; set; }
 
-            set
-            {
-                controlName = value;
-            }
-        }
+        public uint Message { get; set; }
 
-        public uint Message
-        {
-            get
-            {
-                return message;
-            }
-
-            set
-            {
-                message = value;
-            }
-        }
-
-        public string WindowsName
-        {
-            get
-            {
-                return windowsName;
-            }
-
-            set
-            {
-                windowsName = value;
-            }
-        }
+        public string WindowsName { get; set; }
     }
 
 }

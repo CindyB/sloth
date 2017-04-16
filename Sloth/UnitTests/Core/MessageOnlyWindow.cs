@@ -24,8 +24,7 @@ namespace Sloth.UnitTests.Core
             IntPtr HWND_MESSAGE = new IntPtr(-3);
             NativeMethods.SetParent(this.Handle, HWND_MESSAGE);
         }
-
-        // Override
+        
         protected override void WndProc(ref Message m)
         {
             if (m.Msg == 0x0)

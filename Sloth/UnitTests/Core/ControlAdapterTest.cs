@@ -7,7 +7,6 @@ namespace Sloth.UnitTests.Core
     [TestClass()]
     public class ControlAdapterTest
     {
-
         private IControlAdapter target;
 
         [TestInitialize]
