@@ -44,7 +44,7 @@ namespace Sloth.Core
             return true;
         }
 
-        public int CallNextHookEx(IntPtr hhk, int nCode, IntPtr wParam, IntPtr lParam)
+        public int CallNextHookEx(IntPtr hhk, int nCode, IntPtr wParam, TagMsg lParam)
         {
             return CallNextHookEx(hhk, nCode, wParam, lParam);
         }

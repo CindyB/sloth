@@ -22,17 +22,16 @@ namespace Sloth.Learn
 
         public void Start()
         {
-            this.winUtilities.SetWindowsHookEx(7, callbackDelegate, IntPtr.Zero, Thread.CurrentThread.ManagedThreadId);
+            this.winUtilities.SetWindowsHookEx(3, callbackDelegate, IntPtr.Zero, Thread.CurrentThread.ManagedThreadId);
         }
 
-        private int HookCallback(int code, IntPtr wParam, IntPtr lParam)
+        private int HookCallback(int code, IntPtr wParam, TagMsg lParam)
         {
-            Control control = controlAdapter.FromHandle(lParam);
-
-            if (control == null) return this.winUtilities.CallNextHookEx(IntPtr.Zero, code, wParam, lParam);
+            if (code < 0) return this.winUtilities.CallNextHookEx(IntPtr.Zero, code, wParam, lParam);
+            Control control = controlAdapter.FromHandle(lParam.lParam);
 
             IntPtr windowHandle = control.FindForm().Handle;
-            logger.Log(winUtilities.GetWindowText(windowHandle) + ";" + control.Name + ";" + wParam.ToString());
+            logger.Log(winUtilities.GetWindowText(windowHandle) + ";" + control.Name + ";" + lParam.message.ToString());
             return this.winUtilities.CallNextHookEx(IntPtr.Zero, code, wParam, lParam);
         }
 
