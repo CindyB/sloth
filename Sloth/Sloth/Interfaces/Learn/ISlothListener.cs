@@ -3,7 +3,7 @@
 namespace Sloth.Learn
 {
 
-    public interface IEventListener
+    public interface ISlothListener
     {
 
         void Start();

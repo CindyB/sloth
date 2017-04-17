@@ -1,7 +1,7 @@
 ﻿namespace Sloth.Repeat
 {
 
-    public interface IAutomaton
+    public interface ISlothAutomaton
     {
 
         void RepeatBehavior(string filePath);

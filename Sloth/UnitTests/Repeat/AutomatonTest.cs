@@ -13,7 +13,7 @@ namespace Sloth.UnitTests.Repeat
     {
         private IEventRaiser eventRaiser;
         private IEventReader eventReader;
-        private IAutomaton target; 
+        private ISlothAutomaton target; 
 
         [TestInitialize]
         public void TestInitialize()
@@ -21,7 +21,7 @@ namespace Sloth.UnitTests.Repeat
             eventRaiser = MockRepository.GenerateMock<IEventRaiser>();
             eventReader = MockRepository.GenerateMock<IEventReader>();
 
-            target = new Automaton();
+            target = new SlothAutomaton();
             target.GetType().GetField("eventRaiser", BindingFlags.NonPublic | BindingFlags.Instance).SetValue(target, eventRaiser);
             target.GetType().GetField("eventReader", BindingFlags.NonPublic | BindingFlags.Instance).SetValue(target, eventReader);
         }

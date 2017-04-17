@@ -51,7 +51,7 @@ namespace Sloth.AcceptanceTests.Automation
 
         public void WhenReadAndRaiseFirstEvent()
         {
-            IAutomaton auto = new Automaton();
+            ISlothAutomaton auto = new SlothAutomaton();
             auto.RepeatBehavior(logFileName);
         }
 

@@ -51,7 +51,7 @@ namespace Sloth.AcceptanceTests.Learn
         public void GivenEventListenerService()
         {
             winUtilities = new WinUtilities();
-            IEventListener eventListener = new EventListener(new ControlAdapter(), logger, winUtilities);
+            ISlothListener eventListener = new SlothListener(new ControlAdapter(), logger, winUtilities);
             eventListener.Start();
         }
 

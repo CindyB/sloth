@@ -6,13 +6,13 @@ using System.IO;
 
 namespace Sloth.Repeat
 {
-    public class Automaton : IAutomaton
+    public class SlothAutomaton : ISlothAutomaton
     {
 
         private IEventRaiser eventRaiser;
         private IEventReader eventReader;
 
-        public Automaton()
+        public SlothAutomaton()
         {
             eventRaiser = new EventRaiser();
             eventReader = new EventReader();

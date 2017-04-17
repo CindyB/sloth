@@ -37,21 +37,20 @@ namespace Sloth.Core
             NativeMethods.SendMessage(controlHandle, slothEvent.Message,IntPtr.Zero,IntPtr.Zero);
         }
 
-
         public bool EnumChildProc(IntPtr hwndChild, ref IntPtr lParam)
         {
             childHandles.Add(hwndChild);
             return true;
         }
 
-        public int CallNextHookEx(IntPtr hhk, int nCode, IntPtr wParam, TagMsg lParam)
+        public IntPtr CallNextHookEx(IntPtr hhk, int nCode, IntPtr wParam, TagMsg lParam)
         {
-            return CallNextHookEx(hhk, nCode, wParam, lParam);
+            return NativeMethods.CallNextHookEx(hhk, nCode, wParam, lParam);
         }
 
-        public int SetWindowsHookEx(int idHook, HookProc lpfn, IntPtr hInstance, int threadId)
+        public IntPtr SetWindowsHookEx(int idHook, HookProc lpfn, IntPtr hInstance, int threadId)
         {
-            return SetWindowsHookEx(idHook, lpfn, hInstance, threadId);
+            return NativeMethods.SetWindowsHookEx(idHook, lpfn, hInstance, threadId);
         }
 
         internal static class NativeMethods
@@ -60,7 +59,7 @@ namespace Sloth.Core
             public delegate bool EnumChildCallback(IntPtr hwnd, ref IntPtr lParam);
 
             [DllImport("user32.dll")]
-            internal static extern IntPtr CallNextHookEx(IntPtr hhk, int nCode, IntPtr wParam, IntPtr lParam);
+            internal static extern IntPtr CallNextHookEx(IntPtr hhk, int nCode, IntPtr wParam, TagMsg lParam);
 
             [DllImport("user32.dll")]
             internal static extern int EnumChildWindows(IntPtr hwnd, EnumChildCallback Proc, IntPtr lParam);

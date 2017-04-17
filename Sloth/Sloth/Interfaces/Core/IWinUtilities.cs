@@ -13,11 +13,11 @@ namespace Sloth.Core
         public Point pt; 
     }
 
-    public delegate int HookProc(int code, IntPtr wParam, TagMsg lParam);
+    public delegate IntPtr HookProc(int code, IntPtr wParam, TagMsg lParam);
 
     public interface IWinUtilities
     {
-        int CallNextHookEx(IntPtr hhk, int nCode, IntPtr wParam, TagMsg lParam);
+        IntPtr CallNextHookEx(IntPtr hhk, int nCode, IntPtr wParam, TagMsg lParam);
 
         IntPtr FindWindowsHandle(string className,string windowsName);
 
@@ -27,7 +27,7 @@ namespace Sloth.Core
 
         void SendMessage(IntPtr windowsHandle, IntPtr controlHandle, ISlothEvent slothEvent);
 
-        int SetWindowsHookEx(int idHook, HookProc lpfn, IntPtr hInstance, int threadId);
+        IntPtr SetWindowsHookEx(int idHook, HookProc lpfn, IntPtr hInstance, int threadId);
     }
 
 }

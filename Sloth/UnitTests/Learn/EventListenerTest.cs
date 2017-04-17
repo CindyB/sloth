@@ -15,7 +15,7 @@ namespace Sloth.UnitTests.Learn
         private IControlAdapter controlAdapter;
         private ILogger logger;
         private IWinUtilities winUtilities;
-        private IEventListener target;
+        private ISlothListener target;
 
         [TestInitialize]
         public void TestInitialize()
@@ -24,7 +24,7 @@ namespace Sloth.UnitTests.Learn
             logger = MockRepository.GenerateMock <ILogger>();
             winUtilities = MockRepository.GenerateMock<IWinUtilities>();
 
-            target = new EventListener(controlAdapter,logger,winUtilities);
+            target = new SlothListener(controlAdapter,logger,winUtilities);
 
             callbackDelegate = (HookProc)target.GetType().GetField("callbackDelegate", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(target);
         }
