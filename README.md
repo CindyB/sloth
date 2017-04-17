@@ -43,7 +43,7 @@ Of course, you can use only one if want. For the automaton, any file with right 
 ## To Do
 - [x] Have a simple prototype working for Windows Forms app
 - [x] Have a more complete solution working for at least Windows Forms and WPF app
-- [ ] Versioning
+- [x] Versioning
 - [ ] Add a concrete example
 - [ ] Make a decision about acceptance tests
 - [ ] Add some filters for learning events
