@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Drawing;
+using System.Runtime.InteropServices;
 
 namespace Sloth.Core
 {
+    [StructLayout(LayoutKind.Sequential)]
     public struct TagMsg
     {
         public IntPtr hWnd;
@@ -13,11 +15,11 @@ namespace Sloth.Core
         public Point pt; 
     }
 
-    public delegate IntPtr HookProc(int code, IntPtr wParam, TagMsg lParam);
+    public delegate IntPtr HookProc(int code, IntPtr wParam, IntPtr lParam);
 
     public interface IWinUtilities
     {
-        IntPtr CallNextHookEx(IntPtr hhk, int nCode, IntPtr wParam, TagMsg lParam);
+        IntPtr CallNextHookEx(IntPtr hhk, int nCode, IntPtr wParam, IntPtr lParam);
 
         IntPtr FindWindowsHandle(string className,string windowsName);
 

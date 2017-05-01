@@ -44,7 +44,7 @@ namespace Sloth.UnitTests.Learn
         {
             target.Start();
             
-            winUtilities.AssertWasCalled(x => x.SetWindowsHookEx(3, callbackDelegate, IntPtr.Zero, Thread.CurrentThread.ManagedThreadId));
+            winUtilities.AssertWasCalled(x => x.SetWindowsHookEx(3, callbackDelegate, IntPtr.Zero, AppDomain.GetCurrentThreadId()));
         }
 
     }

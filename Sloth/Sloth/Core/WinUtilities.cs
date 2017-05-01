@@ -43,7 +43,7 @@ namespace Sloth.Core
             return true;
         }
 
-        public IntPtr CallNextHookEx(IntPtr hhk, int nCode, IntPtr wParam, TagMsg lParam)
+        public IntPtr CallNextHookEx(IntPtr hhk, int nCode, IntPtr wParam, IntPtr lParam)
         {
             return NativeMethods.CallNextHookEx(hhk, nCode, wParam, lParam);
         }
@@ -59,7 +59,7 @@ namespace Sloth.Core
             public delegate bool EnumChildCallback(IntPtr hwnd, ref IntPtr lParam);
 
             [DllImport("user32.dll")]
-            internal static extern IntPtr CallNextHookEx(IntPtr hhk, int nCode, IntPtr wParam, TagMsg lParam);
+            internal static extern IntPtr CallNextHookEx(IntPtr hhk, int nCode, IntPtr wParam, IntPtr lParam);
 
             [DllImport("user32.dll")]
             internal static extern int EnumChildWindows(IntPtr hwnd, EnumChildCallback Proc, IntPtr lParam);
