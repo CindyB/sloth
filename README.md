@@ -45,7 +45,7 @@ Of course, you can use only one if want. For the automaton, any file with right 
 - [x] Have a more complete solution working for at least Windows Forms and WPF app
 - [x] Versioning
 - [x] Add a concrete example
-- [ ] Make a decision about acceptance tests
+- [x] Make a decision about acceptance tests
 - [ ] Add some filters for learning events
 - [ ] Develop some tools to analyse sloth file
 
