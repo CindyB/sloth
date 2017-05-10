@@ -56,6 +56,9 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="Core\ButtonFilterTest.cs" />
+    <Compile Include="Core\MouseFilterTest.cs" />
+    <Compile Include="Core\KeyboardFilterTest.cs" />
     <Compile Include="Core\NoFilterTest.cs" />
     <Compile Include="Core\MessageOnlyWindow.cs">
       <SubType>Form</SubType>
