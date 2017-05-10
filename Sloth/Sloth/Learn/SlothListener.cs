@@ -1,7 +1,6 @@
 ﻿using Sloth.Core;
 using System;
 using System.Runtime.InteropServices;
-using System.Threading;
 using System.Windows.Forms;
 
 namespace Sloth.Learn
@@ -10,18 +9,23 @@ namespace Sloth.Learn
     {
         private HookProc callbackDelegate = null;
         private IControlAdapter controlAdapter = null;
+        private IFilter filter = null;
         private ILogger logger = null;
         private IWinUtilities winUtilities = null;
 
         public SlothListener() : this(new ControlAdapter(), new Logger(), new WinUtilities())
         {}
 
-        public SlothListener(IControlAdapter controlAdapter, ILogger logger, IWinUtilities winUtilities)
+        public SlothListener(IControlAdapter controlAdapter, ILogger logger, IWinUtilities winUtilities) : this ( controlAdapter,logger,winUtilities, new NoFilter())
+        {}
+
+        public SlothListener(IControlAdapter controlAdapter, ILogger logger, IWinUtilities winUtilities, IFilter filter)
         {
             this.callbackDelegate = new HookProc(HookCallback);
             this.controlAdapter = controlAdapter;
             this.logger = logger;
             this.winUtilities = winUtilities;
+            this.filter = filter;
         }
 
         public void Start()
@@ -38,7 +42,7 @@ namespace Sloth.Learn
             if (control == null) return this.winUtilities.CallNextHookEx(IntPtr.Zero, code, wParam, lParam);
 
             IntPtr windowHandle = control.FindForm().Handle;
-            logger.Log(winUtilities.GetWindowText(windowHandle) + ";" + control.Name + ";" + pMsg.message.ToString());
+            if (filter.IsInRange(pMsg.message)) logger.Log(winUtilities.GetWindowText(windowHandle) + ";" + control.Name + ";" + pMsg.message.ToString());
 
             return this.winUtilities.CallNextHookEx(IntPtr.Zero, code, wParam, lParam);
         }

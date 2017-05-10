@@ -1,6 +1,4 @@
-﻿using System.Windows.Forms;
-
-namespace Sloth.Learn
+﻿namespace Sloth.Learn
 {
 
     public interface ISlothListener
