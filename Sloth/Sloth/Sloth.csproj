@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Core\KeyboardFilter.cs" />
     <Compile Include="Core\MouseFilter.cs" />
     <Compile Include="Core\NoFilter.cs" />
     <Compile Include="Core\ControlAdapter.cs" />

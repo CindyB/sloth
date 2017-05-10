@@ -12,7 +12,7 @@ namespace Sloth.UnitTests.Core
         [TestInitialize]
         public void TestInitialize()
         {
-            //target = new KeyboardFilter();
+            target = new KeyboardFilter();
         }
 
         [TestCleanup]
@@ -20,13 +20,37 @@ namespace Sloth.UnitTests.Core
         {
             target = null;
         }
-
+        
         [TestMethod()]
-        public void GivenAnyMessage_WhenIsInRange_ThenItIsTrue()
+        public void GivenMessageIsKeyFirst_WhenIsInRange_ThenItIsTrue()
         {
-            bool actual = target.IsInRange(20);
+            bool actual = target.IsInRange((uint)WM.KeyFirst);
 
             Assert.IsTrue(actual);
+        }
+
+        [TestMethod()]
+        public void GivenMessageIsKeyFirst_WhenIsInRange_ThenItIsFalse()
+        {
+            bool actual = target.IsInRange((uint)WM.KeyFirst - 1);
+
+            Assert.IsFalse(actual);
+        }
+
+        [TestMethod()]
+        public void GivenMessageIsKeyLast_WhenIsInRange_ThenItIsTrue()
+        {
+            bool actual = target.IsInRange((uint)WM.KeyLast);
+
+            Assert.IsTrue(actual);
+        }
+
+        [TestMethod()]
+        public void GivenMessageIsAboveKeyLast_WhenIsInRange_ThenItIsFalse()
+        {
+            bool actual = target.IsInRange((uint)WM.KeyLast + 1);
+
+            Assert.IsFalse(actual);
         }
 
     }
