@@ -13,10 +13,10 @@ namespace Sloth.Learn
         private ILogger logger = null;
         private IWinUtilities winUtilities = null;
 
-        public SlothListener() : this(new ControlAdapter(), new Logger(), new WinUtilities())
+        public SlothListener() : this(new ControlAdapter(), new Logger(), new WinUtilities(), new NoFilter())
         {}
 
-        public SlothListener(IControlAdapter controlAdapter, ILogger logger, IWinUtilities winUtilities) : this ( controlAdapter,logger,winUtilities, new NoFilter())
+        public SlothListener(IFilter filter) : this (new ControlAdapter(), new Logger(), new WinUtilities(), filter)
         {}
 
         public SlothListener(IControlAdapter controlAdapter, ILogger logger, IWinUtilities winUtilities, IFilter filter)
@@ -47,7 +47,8 @@ namespace Sloth.Learn
             }
             else
             {
-                IntPtr windowHandle = control.FindForm().Handle;
+                Form form = control.FindForm();
+                IntPtr windowHandle = form != null ? form.Handle : IntPtr.Zero;
                 if (filter.IsInRange(pMsg.message)) logger.Log(winUtilities.GetWindowText(windowHandle) + ";" + control.Name + ";" + pMsg.message.ToString());
             }
 

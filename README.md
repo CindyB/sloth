@@ -46,7 +46,7 @@ Of course, you can use only one if want. For the automaton, any file with right 
 - [x] Versioning
 - [x] Add a concrete example
 - [x] Make a decision about acceptance tests
-- [ ] Add some filters for learning events
+- [x] Add some filters for learning events
 - [ ] Develop some tools to analyse sloth file
 
 ## History

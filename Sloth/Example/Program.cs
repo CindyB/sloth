@@ -18,7 +18,7 @@ namespace Example
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            ISlothListener listener = new SlothListener();
+            ISlothListener listener = new SlothListener(new ButtonFilter());
             listener.Start();
 
             Application.Run(new Form1());
