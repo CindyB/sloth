@@ -39,10 +39,17 @@ namespace Sloth.Learn
             TagMsg pMsg = (TagMsg)Marshal.PtrToStructure(lParam, typeof(TagMsg));
             Control control = controlAdapter.FromHandle(pMsg.hWnd);
 
-            if (control == null) return this.winUtilities.CallNextHookEx(IntPtr.Zero, code, wParam, lParam);
+            if (filter is ButtonFilter && control == null) return this.winUtilities.CallNextHookEx(IntPtr.Zero, code, wParam, lParam);
 
-            IntPtr windowHandle = control.FindForm().Handle;
-            if (filter.IsInRange(pMsg.message)) logger.Log(winUtilities.GetWindowText(windowHandle) + ";" + control.Name + ";" + pMsg.message.ToString());
+            if (control == null)
+            {
+                if (filter.IsInRange(pMsg.message)) logger.Log(";;" + pMsg.message.ToString());
+            }
+            else
+            {
+                IntPtr windowHandle = control.FindForm().Handle;
+                if (filter.IsInRange(pMsg.message)) logger.Log(winUtilities.GetWindowText(windowHandle) + ";" + control.Name + ";" + pMsg.message.ToString());
+            }
 
             return this.winUtilities.CallNextHookEx(IntPtr.Zero, code, wParam, lParam);
         }

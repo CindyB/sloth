@@ -12,7 +12,7 @@ namespace Sloth.UnitTests.Core
         [TestInitialize]
         public void TestInitialize()
         {
-            //target = new ButtonFilter();
+            target = new ButtonFilter();
         }
 
         [TestCleanup]
@@ -20,13 +20,37 @@ namespace Sloth.UnitTests.Core
         {
             target = null;
         }
-
+        
         [TestMethod()]
-        public void GivenAnyMessage_WhenIsInRange_ThenItIsTrue()
+        public void GivenMessageIsLButtonDown_WhenIsInRange_ThenItIsTrue()
         {
-            bool actual = target.IsInRange(20);
+            bool actual = target.IsInRange((uint)WM.LButtonDown);
 
             Assert.IsTrue(actual);
+        }
+
+        [TestMethod()]
+        public void GivenMessageIsLButtonDown_WhenIsInRange_ThenItIsFalse()
+        {
+            bool actual = target.IsInRange((uint)WM.LButtonDown - 1);
+
+            Assert.IsFalse(actual);
+        }
+
+        [TestMethod()]
+        public void GivenMessageIsMouseHWheel_WhenIsInRange_ThenItIsTrue()
+        {
+            bool actual = target.IsInRange((uint)WM.MouseHWheel);
+
+            Assert.IsTrue(actual);
+        }
+
+        [TestMethod()]
+        public void GivenMessageIsAboveMouseHWheel_WhenIsInRange_ThenItIsFalse()
+        {
+            bool actual = target.IsInRange((uint)WM.MouseHWheel + 1);
+
+            Assert.IsFalse(actual);
         }
 
     }
